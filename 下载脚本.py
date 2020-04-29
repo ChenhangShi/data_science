@@ -50,6 +50,4 @@ for userId in data:
             # 中文url不能下载，要quote
             urllib.request.urlretrieve(urllib.parse.quote(file_url,safe=string.printable), file_path + filename)
             解压缩脚本.un_zip(file_path + filename)
-
             print('成功：'+file_path)
-
