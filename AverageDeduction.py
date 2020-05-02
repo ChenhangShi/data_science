@@ -50,4 +50,5 @@ def getAverageDeduction():
         # 转换成小数
         averageDeductionRanks[caseId]=rank/len(values)
 
+    f.close()
     return averageDeductionValues,averageDeductionRanks
