@@ -10,17 +10,17 @@ def getAverageDeduction():
     # 做的人的数量
     userNum=defaultdict(int)
     # 平均值
-    imcompleteRatioValues = defaultdict(float)
+    incompleteRatioValues = defaultdict(float)
     # 在样本中的排行位置
-    imcompleteRatioRatios = defaultdict(float)
+    incompleteRatioRatios = defaultdict(float)
 
     # 获得要取的cases
     sampleCaseList=SampleCaseList.getSampleCaseList()
     # 如果一道题所有人都完成了 结果中会缺失 所以先初始化
     for caseId in sampleCaseList:
         d[caseId]=0
-        imcompleteRatioValues[caseId]=0.0
-        imcompleteRatioRatios[caseId]=0.0
+        incompleteRatioValues[caseId]=0.0
+        incompleteRatioRatios[caseId]=0.0
 
     f=open('test_data.json',encoding='utf-8')
     res=f.read()
@@ -43,14 +43,14 @@ def getAverageDeduction():
     for caseId in d:
         incompleteRatio=d[caseId]/userNum[caseId]
         # 既加入字典 又加入list
-        imcompleteRatioValues[caseId]=incompleteRatio
+        incompleteRatioValues[caseId]=incompleteRatio
         values.append(incompleteRatio)
     values.sort()
 
     # 获得位置
-    for caseId in imcompleteRatioValues:
+    for caseId in incompleteRatioValues:
         # 该值
-        value=imcompleteRatioValues[caseId]
+        value=incompleteRatioValues[caseId]
         rank=0
         # 遍历查找排第几
         for i in range(len(values)):
@@ -58,7 +58,7 @@ def getAverageDeduction():
                 rank=i
                 break
         # 转换成小数
-        imcompleteRatioRatios[caseId]=rank/len(values)
+        incompleteRatioRatios[caseId]=rank/len(values)
 
     f.close()
-    return imcompleteRatioValues,imcompleteRatioRatios
+    return incompleteRatioValues,incompleteRatioRatios
