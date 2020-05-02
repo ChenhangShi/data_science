@@ -3,7 +3,7 @@ import urllib.request,urllib.parse
 import os
 import shutil
 import string
-import 解压缩脚本
+import Unzip
 
 
 # 注意，如果要在命令行里使用，先cd
@@ -49,5 +49,5 @@ for userId in data:
                 os.mkdir(file_path)
             # 中文url不能下载，要quote
             urllib.request.urlretrieve(urllib.parse.quote(file_url,safe=string.printable), file_path + filename)
-            解压缩脚本.un_zip(file_path + filename)
+            Unzip.un_zip(file_path + filename)
             print('成功：'+file_path)
