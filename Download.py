@@ -8,20 +8,20 @@ import Unzip
 
 # 注意，如果要在命令行里使用，先cd
 
-f=open('test_data.json',encoding='utf-8')
-res=f.read()
-data=json.loads(res)
+f = open('test_data.json', encoding='utf-8')
+res = f.read()
+data = json.loads(res)
 
 if not os.path.exists("data"):
     os.mkdir("data")
 
 for userId in data:
-    cases=data[userId]['cases']
+    cases = data[userId]['cases']
     for case in cases:
-        caseId=case['case_id']
+        caseId = case['case_id']
 
         # 压缩包损坏
-        if caseId=='2528' and userId=='60765':
+        if caseId == '2528' and userId == '60765':
             continue
 
         # 方便理解
@@ -33,12 +33,12 @@ for userId in data:
         print(file_path)
 
         # 取最后一次提交
-        finalUpload=len(case["upload_records"])-1
+        finalUpload = len(case["upload_records"])-1
         if finalUpload < 0:
             continue
 
-        file_url=case["upload_records"][finalUpload]["code_url"]
-        filename=urllib.parse.unquote(os.path.basename(file_url))
+        file_url = case["upload_records"][finalUpload]["code_url"]
+        filename = urllib.parse.unquote(os.path.basename(file_url))
 
         # user3544有两个case_id为2908，会有冲突
         # 重新运行时，要跳过成功下载的
@@ -48,6 +48,6 @@ for userId in data:
                 shutil.rmtree(file_path)
                 os.mkdir(file_path)
             # 中文url不能下载，要quote
-            urllib.request.urlretrieve(urllib.parse.quote(file_url,safe=string.printable), file_path + filename)
+            urllib.request.urlretrieve(urllib.parse.quote(file_url, safe=string.printable), file_path + filename)
             Unzip.un_zip(file_path + filename)
             print('成功：'+file_path)
