@@ -12,7 +12,7 @@ def getAverageTime():
     # 平均提交次数
     averageTime = defaultdict(float)
     # 用来获取排序后的caseId的提交时间
-    averageUploadSeqRatio = defaultdict(float)
+    averageUploadSeqRanks = defaultdict(float)
     # 获得要取的系统抽样后的cases
     sampleCaseList = SampleCaseList.getSampleCaseList()
 
@@ -51,9 +51,9 @@ def getAverageTime():
             if temp == sequence[i]:
                 seq = i
                 break
-        averageUploadSeqRatio[caseId]=seq/len(sequence)
+        averageUploadSeqRanks[caseId]=seq/len(sequence)
     f.close()
-    return averageTime,averageUploadSeqRatio
+    return averageTime,averageUploadSeqRanks
 
 # if __name__ == '__main__':
 #     d = getAverageTime()
