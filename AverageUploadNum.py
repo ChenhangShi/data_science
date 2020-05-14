@@ -11,7 +11,8 @@ def getAverageUploadNum():
     d = defaultdict(list)
     # 平均提交次数
     averageUploadNum = defaultdict(float)
-
+    # 用来获取排序后的caseId的提交次数
+    averageUploadSeqRatio = defaultdict(float)
     # 获得要取的系统抽样后的cases
     sampleCaseList = SampleCaseList.getSampleCaseList()
 
@@ -29,13 +30,26 @@ def getAverageUploadNum():
             if caseId in sampleCaseList:
                 uploadNum=len(case['upload_records'])
                 d[caseId].append(uploadNum)
+
+    # 找到某个caseId在整体caseId中的sequence
+    sequence=[]
     for caseId in d:
         averageUpload = sum(d[caseId]) / len(d[caseId])
-        # 既加入字典 又加入list
         averageUploadNum[caseId] = averageUpload
+        sequence.append(averageUpload)
+    sequence.sort()
+
+    for caseId in averageUploadNum:
+        temp = averageUploadNum[caseId]
+        seq = 0
+        for i in range(len(sequence)):
+            if temp == sequence[i]:
+                seq = i
+                break
+        averageUploadSeqRatio[caseId]=seq/len(sequence)
 
     f.close()
-    return averageUploadNum
+    return averageUploadNum,averageUploadSeqRatio
 
 # if __name__ == '__main__':
 #     d = getAverageUploadNum()
