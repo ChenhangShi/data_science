@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getAverageDeduction():
+def getIncompleteRatio():
 
     # 原始值
     d=defaultdict(int)

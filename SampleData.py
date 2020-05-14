@@ -1,0 +1,16 @@
+import SampleCaseList
+import AverageDeduction
+import AverageLineNum
+import AverageTime
+import AverageUploadNum
+import cheatRatio
+import IncompleteRatio
+
+
+caseList=SampleCaseList.getSampleCaseList()
+averageDeductionValues,averageDeductionRanks=AverageDeduction.getAverageDeduction()
+averageLineNumValues, averageLineNumRanks=AverageLineNum.getAverageLineNum()
+averageTimeValues,averageTimeRanks=AverageTime.getAverageTime()
+averageUploadNumValues,averageUploadNumRanks=AverageUploadNum.getAverageUploadNum()
+cheatRatioValues, cheatRatioRanks=cheatRatio.cheatRatio()
+incompleteRatioValues,incompleteRatioRanks=IncompleteRatio.getIncompleteRatio()
