@@ -71,7 +71,3 @@ def getSampleData():
                                cheatRatioValues[caseId],
                                incompleteRatioValues[caseId]))
     return sampleData
-
-
-data=getSampleData()
-print(data)
