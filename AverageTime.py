@@ -36,13 +36,15 @@ def getAverageTime():
                     # 毫秒转成分钟，完成代码所需分钟数
                     costTime=(endTime-beginTime)/60000
                     d[caseId].append(costTime)
+
     # 找到某个caseId在整体caseId中的sequence
-    sequence = []
+    # sequence = []
     for caseId in d:
         averageTimeTemp = sum(d[caseId]) / len(d[caseId])
         averageTime[caseId] = averageTimeTemp
-        sequence.append(averageTimeTemp)
+        # sequence.append(averageTimeTemp)
 
+    '''
     sequence.sort()
     for caseId in averageTime:
         temp = averageTime[caseId]
@@ -52,8 +54,9 @@ def getAverageTime():
                 seq = i
                 break
         averageUploadSeqRanks[caseId]=seq/len(sequence)
+    '''
     f.close()
-    return averageTime,averageUploadSeqRanks
+    return averageTime  # ,averageUploadSeqRanks
 
 # if __name__ == '__main__':
 #     d = getAverageTime()

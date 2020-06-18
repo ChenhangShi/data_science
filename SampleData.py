@@ -29,44 +29,49 @@ id
 
 class Case(object):
     def __init__(self,caseId,
-                 averageDeductionValue,averageDeductionRank,
-                 averageLineNumValue,averageLineNumRank,
-                 averageTimeValue,averageTimeRank,
-                 averageUploadNumValue,averageUploadNumRank,
-                 cheatRatioValue, cheatRatioRank,
-                 incompleteRatioValue,incompleteRatioRank):
+                 averageDeductionValue,  # averageDeductionRank,
+                 averageLineNumValue,  # averageLineNumRank,
+                 averageTimeValue,  # averageTimeRank,
+                 averageUploadNumValue,  # averageUploadNumRank,
+                 cheatRatioValue,  # cheatRatioRank,
+                 incompleteRatioValue,  # incompleteRatioRank
+                 ):
         self.caseId=caseId
         self.averageDeductionValue=averageDeductionValue
-        self.averageDeductionRank=averageDeductionRank
+        # self.averageDeductionRank=averageDeductionRank
         self.incompleteRatioValue=incompleteRatioValue
-        self.incompleteRatioRank=incompleteRatioRank
+        # self.incompleteRatioRank=incompleteRatioRank
         self.averageTimeValue=averageTimeValue
-        self.averageTimeRank=averageTimeRank
+        # self.averageTimeRank=averageTimeRank
         self.averageUploadNumValue=averageUploadNumValue
-        self.averageUploadNumRank=averageUploadNumRank
+        # self.averageUploadNumRank=averageUploadNumRank
         self.averageLineNumValue = averageLineNumValue
-        self.averageLineNumRank = averageLineNumRank
+        # self.averageLineNumRank = averageLineNumRank
         self.cheatRatioValue=cheatRatioValue
-        self.cheatRatioRank=cheatRatioRank
+        # self.cheatRatioRank=cheatRatioRank
 
 
 def getSampleData():
 
     caseList = SampleCaseList.getSampleCaseList()
-    averageDeductionValues, averageDeductionRanks = AverageDeduction.getAverageDeduction()
-    averageLineNumValues, averageLineNumRanks = AverageLineNum.getAverageLineNum()
-    averageTimeValues, averageTimeRanks = AverageTime.getAverageTime()
-    averageUploadNumValues, averageUploadNumRanks = AverageUploadNum.getAverageUploadNum()
-    cheatRatioValues, cheatRatioRanks = cheatRatio.cheatRatio()
-    incompleteRatioValues, incompleteRatioRanks = IncompleteRatio.getIncompleteRatio()
+    averageDeductionValues = AverageDeduction.getAverageDeduction()
+    averageLineNumValues = AverageLineNum.getAverageLineNum()
+    averageTimeValues = AverageTime.getAverageTime()
+    averageUploadNumValues = AverageUploadNum.getAverageUploadNum()
+    cheatRatioValues = cheatRatio.cheatRatio()
+    incompleteRatioValues = IncompleteRatio.getIncompleteRatio()
 
     sampleData=[]
     for caseId in caseList:
         sampleData.append(Case(caseId,
-                               averageDeductionValues[caseId],averageDeductionRanks[caseId],
-                               averageLineNumValues[caseId],averageLineNumRanks[caseId],
-                               averageTimeValues[caseId],averageTimeRanks[caseId],
-                               averageUploadNumValues[caseId],averageUploadNumRanks[caseId],
-                               cheatRatioValues[caseId],cheatRatioRanks[caseId],
-                               incompleteRatioValues[caseId],incompleteRatioRanks[caseId]))
+                               averageDeductionValues[caseId],
+                               averageLineNumValues[caseId],
+                               averageTimeValues[caseId],
+                               averageUploadNumValues[caseId],
+                               cheatRatioValues[caseId],
+                               incompleteRatioValues[caseId]))
     return sampleData
+
+
+data=getSampleData()
+print(data)

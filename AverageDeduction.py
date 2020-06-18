@@ -28,15 +28,19 @@ def getAverageDeduction():
                 deduction=100-case['final_score']
                 d[caseId].append(deduction)
 
+    '''
     # 排序用
     values=[]
+    '''
+
     for caseId in d:
         averageDeduction=sum(d[caseId])/len(d[caseId])
         # 既加入字典 又加入list
         averageDeductionValues[caseId]=averageDeduction
-        values.append(averageDeduction)
-    values.sort()
+        # values.append(averageDeduction)
+    # values.sort()
 
+    '''
     # 获得位置
     for caseId in averageDeductionValues:
         # 该值
@@ -49,6 +53,7 @@ def getAverageDeduction():
                 break
         # 转换成小数
         averageDeductionRanks[caseId]=rank/len(values)
+    '''
 
     f.close()
-    return averageDeductionValues,averageDeductionRanks
+    return averageDeductionValues  # , averageDeductionRanks
