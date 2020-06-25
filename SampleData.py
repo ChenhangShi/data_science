@@ -29,25 +29,25 @@ id
 
 class Case(object):
     def __init__(self,caseId,
-                 averageDeductionValue,  # averageDeductionRank,
-                 averageLineNumValue,  # averageLineNumRank,
-                 averageTimeValue,  # averageTimeRank,
-                 averageUploadNumValue,  # averageUploadNumRank,
-                 cheatRatioValue,  # cheatRatioRank,
-                 incompleteRatioValue,  # incompleteRatioRank
+                 averageDeduction,  # averageDeductionRank,
+                 averageLineNum,  # averageLineNumRank,
+                 averageTime,  # averageTimeRank,
+                 averageUploadNum,  # averageUploadNumRank,
+                 cheatRatio,  # cheatRatioRank,
+                 incompleteRatio,  # incompleteRatioRank
                  ):
         self.caseId=caseId
-        self.averageDeductionValue=averageDeductionValue
+        self.averageDeduction=averageDeduction
         # self.averageDeductionRank=averageDeductionRank
-        self.incompleteRatioValue=incompleteRatioValue
+        self.incompleteRatio=incompleteRatio
         # self.incompleteRatioRank=incompleteRatioRank
-        self.averageTimeValue=averageTimeValue
+        self.averageTime=averageTime
         # self.averageTimeRank=averageTimeRank
-        self.averageUploadNumValue=averageUploadNumValue
+        self.averageUploadNum=averageUploadNum
         # self.averageUploadNumRank=averageUploadNumRank
-        self.averageLineNumValue = averageLineNumValue
+        self.averageLineNum = averageLineNum
         # self.averageLineNumRank = averageLineNumRank
-        self.cheatRatioValue=cheatRatioValue
+        self.cheatRatio = cheatRatio
         # self.cheatRatioRank=cheatRatioRank
 
 

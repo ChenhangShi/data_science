@@ -15,7 +15,7 @@ def getSampleCaseList():
                 caseList.append(caseId)
 
     sampleCaseList=[]
-    for i in range(0,len(caseList),10):
+    for i in range(0,len(caseList),5):
         sampleCaseList.append(caseList[i])
     f.close()
     return sampleCaseList
