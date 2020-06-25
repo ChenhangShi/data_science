@@ -17,11 +17,11 @@ def do_pca():
     data = getSampleData()
     # 原始矩阵X
     X = np.mat(utils.caseListToMartix(data))
-    doPCA(X)
+    myPCA(X)
 
 
 # 传入一个矩阵 一行为一条记录 一列为一个特征
-def doPCA(X):
+def myPCA(X):
     # 第一步 原始数据的标准化
     # 样本数量
     n = len(X)
@@ -30,18 +30,8 @@ def doPCA(X):
     avg = np.mean(X, axis=0)  # TODO return
     # 每一列求标准差
     sd = np.std(X, axis=0)  # TODO return
-    # 标准化得到Z
-    # 还可以只减去平均值 中心化 sklearn的pca就是这样
-    # 如果不做处理 后面求的是相关系数矩阵而不是协方差矩阵
-    # Z = (X - avg) / sd
-    # 改为中心化
-    Z = X - avg
-    '''
-    Z = StandardScaler().fit_transform(X)
-    print(Z)
-    print('\n\n\n\n\n\n\n')
-    '''
-
+    # 标准化得到Z sklearn的pca只减去平均值，中心化
+    Z = (X - avg) / sd
     # 第二步 求(Z)T的协方差矩阵R 因为Z的一个特征为一列 而不是一行
     R = np.dot(Z.T, Z) / (n - 1)
     # R = np.cov(Z.T)
@@ -82,26 +72,20 @@ def doPCA(X):
         select_matrix.append(eigenVec[:, eigenMaps[i].columnIndex])
     # 投影矩阵W 与pca.components_相差一个负号 因为特征向量取反仍然是特征向量
     W = np.concatenate(select_matrix, axis=1)  # TODO return
+    print(W.T)
     # Z * W 生成主成分结果U Z有样本容量个行，特征数个列 W有特征数个行，m个列
     # 由于特征向量的符号和调pca库的特征向量符号相反 结果也符号相反
     U = np.dot(Z, W)  # TODO return
     print(U)
     print('\n\n\n\n\n')
 
-    '''
-    # 总方差贡献率达85%以上
-    pca = PCA(0.85)
-    pca.fit(X)
-    U = pca.transform(X)
-    print(U)
-    print('\n\n\n\n\n')
-    '''
-
     # 加权 综合
     res = []  # TODO return
     each_contributions = []  # TODO return
     for i in range(m):
         each_contributions.append(eigenMaps[i].eigenValue / eigenValue_sum)
+    print(each_contributions)
+    print('\n\n\n')
     for i in range(n):
         s = 0
         for j in range(m):
@@ -109,6 +93,25 @@ def doPCA(X):
         res.append(s)
     res.sort()
     print(res)
+    print('\n\n\n')
+
+
+# 调用库
+def doPCA(X):
+
+    # Z = StandardScaler().fit_transform(X)
+
+    # 做中心化 而不是标准化
+    # 总方差贡献率达85%以上
+    pca = PCA(0.85)
+    pca.fit(X)
+    U2 = pca.transform(X)
+    print(pca.components_)
+    print()
+    print(U2)
+    print()
+    print(pca.explained_variance_ratio_)
+    print('\n\n\n\n\n')
 
 
 do_pca()
