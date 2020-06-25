@@ -57,7 +57,7 @@ def myPCA(X):
     # 是哪几列
     selectedCols=[]
     # 利用率
-    total_contribution = 0
+    total_contribution = 0  # TODO return
     # 第0到第m个特征值之和
     eigenValue_cur = 0
     while total_contribution < 0.85:
@@ -97,9 +97,15 @@ def myPCA(X):
         for j in range(m):
             s += U[i, j] * each_contributions[j]
         res.append(s/total_contribution)  # 除以累计贡献
-    res.sort()
+    res.sort()  # TODO return 要不要记录caseId
     print(res)
     print('\n\n\n')
+    # 要返回的：综合结果res
+    # 对样本pca得到的结果
+    # 平均值和标准差 用于将新数据标准化
+    # 投影矩阵 也就是训练好的模型 用于将标准化的新数据降维
+    # 主成分的总贡献率和分别贡献率 用于将降维的新数据综合
+
 
 
 # 调用库
