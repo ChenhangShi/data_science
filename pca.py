@@ -41,7 +41,7 @@ def myPCA(X):
     eigenValue, eigenVec = np.linalg.eig(R)
     # 对特征向量做正向化处理 因为选取的指标按常识是正相关
     for i in range(len(eigenValue)):
-        col=eigenVec[:, i]
+        col = eigenVec[:, i]
         if sum(col) < 0:
             eigenVec[:, i] = -col
     eigenMaps = []
@@ -55,7 +55,7 @@ def myPCA(X):
     # 选第0到第m个
     m = -1
     # 是哪几列
-    selectedCols=[]
+    selectedCols = []
     # 利用率
     total_contribution = 0  # TODO return
     # 第0到第m个特征值之和
@@ -96,7 +96,7 @@ def myPCA(X):
         s = 0
         for j in range(m):
             s += U[i, j] * each_contributions[j]
-        res.append(s/total_contribution)  # 除以累计贡献
+        res.append(s / total_contribution)  # 除以累计贡献
     res.sort()  # TODO return 要不要记录caseId
     print(res)
     print('\n\n\n')
@@ -107,10 +107,8 @@ def myPCA(X):
     # 主成分的总贡献率和分别贡献率 用于将降维的新数据综合
 
 
-
 # 调用库
 def doPCA(X):
-
     # Z = StandardScaler().fit_transform(X)
 
     # 做中心化 而不是标准化
