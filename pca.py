@@ -79,6 +79,7 @@ def myPCA(X):
     print(U)
     print('\n\n\n\n\n')
 
+    '''
     # 加权 综合
     res = []  # TODO return
     each_contributions = []  # TODO return
@@ -94,6 +95,7 @@ def myPCA(X):
     res.sort()
     print(res)
     print('\n\n\n')
+    '''
 
 
 # 调用库
