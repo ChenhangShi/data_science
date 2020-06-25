@@ -37,7 +37,13 @@ def myPCA(X):
     # R = np.cov(Z.T)
 
     # 第三步 求协方差矩阵R的特征值特征向量 eigenVec是一个矩阵，一列为一个特征向量
+    # 和pca库里生成的特征矩阵符号相反
     eigenValue, eigenVec = np.linalg.eig(R)
+    # 对特征向量做正向化处理 因为选取的指标按常识是正相关
+    for i in range(len(eigenValue)):
+        col=eigenVec[:, i]
+        if sum(col) < 0:
+            eigenVec[:, i] = -col
     eigenMaps = []
     for i in range(len(eigenValue)):
         eigenMaps.append(EigenMap(i, eigenValue[i]))
@@ -79,7 +85,6 @@ def myPCA(X):
     print(U)
     print('\n\n\n\n\n')
 
-    '''
     # 加权 综合
     res = []  # TODO return
     each_contributions = []  # TODO return
@@ -91,11 +96,10 @@ def myPCA(X):
         s = 0
         for j in range(m):
             s += U[i, j] * each_contributions[j]
-        res.append(s)
+        res.append(s/total_contribution)  # 除以累计贡献
     res.sort()
     print(res)
     print('\n\n\n')
-    '''
 
 
 # 调用库
