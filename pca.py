@@ -79,6 +79,7 @@ def myPCA(X):
     # 投影矩阵W 与pca.components_相差一个负号 因为特征向量取反仍然是特征向量
     W = np.concatenate(select_matrix, axis=1)  # TODO return
     print(W.T)
+    print('\n\n\n\n')
     # Z * W 生成主成分结果U Z有样本容量个行，特征数个列 W有特征数个行，m个列
     # 由于特征向量的符号和调pca库的特征向量符号相反 结果也符号相反
     U = np.dot(Z, W)  # TODO return
@@ -109,13 +110,12 @@ def myPCA(X):
 
 # 调用库
 def doPCA(X):
-    # Z = StandardScaler().fit_transform(X)
+    Z = StandardScaler().fit_transform(X)
 
-    # 做中心化 而不是标准化
     # 总方差贡献率达85%以上
-    pca = PCA(0.85)
-    pca.fit(X)
-    U2 = pca.transform(X)
+    pca = PCA(0.85)  # 自动做中心化 而不是标准化 如果在之前做了标准化，再做中心化减去0，无影响
+    pca.fit(Z)
+    U2 = pca.transform(Z)
     print(pca.components_)
     print()
     print(U2)
