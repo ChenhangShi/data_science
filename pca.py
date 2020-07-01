@@ -32,6 +32,7 @@ def myPCA(X):
     sd = np.std(X, axis=0)  # TODO return
     # 标准化得到Z sklearn的pca只减去平均值，中心化
     Z = (X - avg) / sd
+
     # 第二步 求(Z)T的协方差矩阵R 因为Z的一个特征为一列 而不是一行
     R = np.dot(Z.T, Z) / (n - 1)
     # R = np.cov(Z.T)
@@ -76,7 +77,7 @@ def myPCA(X):
     select_matrix = []
     for i in range(m):
         select_matrix.append(eigenVec[:, eigenMaps[i].columnIndex])
-    # 投影矩阵W 与pca.components_相差一个负号 因为特征向量取反仍然是特征向量
+    # 投影矩阵W 与pca.components_相差负号 因为特征向量取反仍然是特征向量
     W = np.concatenate(select_matrix, axis=1)  # TODO return
     print(W.T)
     print('\n\n\n\n')
@@ -86,7 +87,7 @@ def myPCA(X):
     print(U)
     print('\n\n\n\n\n')
 
-    # 加权 综合
+    # 第五步 加权 综合
     res = []  # TODO return 要不要记录caseId
     each_contributions = []  # TODO return
     for i in range(m):
@@ -97,7 +98,7 @@ def myPCA(X):
         s = 0
         for j in range(m):
             s += U[i, j] * each_contributions[j]
-        res.append(s / total_contribution)  # 除以累计贡献
+        res.append(s)
     print(res)
     print('\n\n\n')
     # 要返回的：
@@ -105,8 +106,8 @@ def myPCA(X):
     # 对样本pca得到的结果U
     # 平均值avg和标准差sd 用于将新数据标准化
     # 投影矩阵W 也就是训练好的模型 用于将标准化的新数据降维
-    # 主成分的总贡献率和分别贡献率 用于将降维的新数据综合
-    return res, U, avg, sd, W, total_contribution, each_contributions
+    # 主成分的分别贡献率 用于将降维的新数据综合
+    return res, U, avg, sd, W, each_contributions
 
 
 # 调用库
