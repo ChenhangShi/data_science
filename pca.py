@@ -17,7 +17,7 @@ def do_pca():
     data = getSampleData()
     # 原始矩阵X
     X = np.mat(utils.caseListToMartix(data))
-    myPCA(X)
+    return myPCA(X)
 
 
 # 传入一个矩阵 一行为一条记录 一列为一个特征
@@ -101,16 +101,17 @@ def myPCA(X):
     res.sort()  # TODO return 要不要记录caseId
     print(res)
     print('\n\n\n')
-    # 要返回的：综合结果res
-    # 对样本pca得到的结果
-    # 平均值和标准差 用于将新数据标准化
-    # 投影矩阵 也就是训练好的模型 用于将标准化的新数据降维
+    # 要返回的：
+    # 综合结果res
+    # 对样本pca得到的结果U
+    # 平均值avg和标准差sd 用于将新数据标准化
+    # 投影矩阵W 也就是训练好的模型 用于将标准化的新数据降维
     # 主成分的总贡献率和分别贡献率 用于将降维的新数据综合
     return res, U, avg, sd, W, total_contribution, each_contributions
 
 
 # 调用库
-def doPCA(X):
+def libPCA(X):
     Z = StandardScaler().fit_transform(X)
 
     # 总方差贡献率达85%以上
