@@ -87,7 +87,7 @@ def myPCA(X):
     print('\n\n\n\n\n')
 
     # 加权 综合
-    res = []  # TODO return
+    res = []  # TODO return 要不要记录caseId
     each_contributions = []  # TODO return
     for i in range(m):
         each_contributions.append(eigenMaps[i].eigenValue / eigenValue_sum)
@@ -98,7 +98,6 @@ def myPCA(X):
         for j in range(m):
             s += U[i, j] * each_contributions[j]
         res.append(s / total_contribution)  # 除以累计贡献
-    res.sort()  # TODO return 要不要记录caseId
     print(res)
     print('\n\n\n')
     # 要返回的：
