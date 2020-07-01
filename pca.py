@@ -106,6 +106,7 @@ def myPCA(X):
     # 平均值和标准差 用于将新数据标准化
     # 投影矩阵 也就是训练好的模型 用于将标准化的新数据降维
     # 主成分的总贡献率和分别贡献率 用于将降维的新数据综合
+    return res, U, avg, sd, W, total_contribution, each_contributions
 
 
 # 调用库
