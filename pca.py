@@ -27,9 +27,9 @@ def myPCA(X):
     n = len(X)
     # 标准化去量纲
     # 每一列求平均值
-    avg = np.mean(X, axis=0)  # TODO return
+    avg = np.mean(X, axis=0)
     # 每一列求标准差
-    sd = np.std(X, axis=0)  # TODO return
+    sd = np.std(X, axis=0)
     # 标准化得到Z sklearn的pca只减去平均值，中心化
     Z = (X - avg) / sd
 
@@ -38,7 +38,6 @@ def myPCA(X):
     # R = np.cov(Z.T)
 
     # 第三步 求协方差矩阵R的特征值特征向量 eigenVec是一个矩阵，一列为一个特征向量
-    # 和pca库里生成的特征矩阵符号相反
     eigenValue, eigenVec = np.linalg.eig(R)
     # 对特征向量做正向化处理 因为选取的指标按常识是正相关
     for i in range(len(eigenValue)):
@@ -58,7 +57,7 @@ def myPCA(X):
     # 是哪几列
     selectedCols = []
     # 利用率
-    total_contribution = 0  # TODO return
+    total_contribution = 0
     # 第0到第m个特征值之和
     eigenValue_cur = 0
     while total_contribution < 0.85:
@@ -77,19 +76,19 @@ def myPCA(X):
     select_matrix = []
     for i in range(m):
         select_matrix.append(eigenVec[:, eigenMaps[i].columnIndex])
-    # 投影矩阵W 与pca.components_相差负号 因为特征向量取反仍然是特征向量
-    W = np.concatenate(select_matrix, axis=1)  # TODO return
+    # 投影矩阵W
+    W = np.concatenate(select_matrix, axis=1)
     print(W.T)
     print('\n\n\n\n')
     # Z * W 生成主成分结果U Z有样本容量个行，特征数个列 W有特征数个行，m个列
     # 由于特征向量的符号和调pca库的特征向量符号相反 结果也符号相反
-    U = np.dot(Z, W)  # TODO return
+    U = np.dot(Z, W)
     print(U)
     print('\n\n\n\n\n')
 
     # 第五步 加权 综合
-    res = []  # TODO return 要不要记录caseId
-    each_contributions = []  # TODO return
+    res = []
+    each_contributions = []
     for i in range(m):
         each_contributions.append(eigenMaps[i].eigenValue / eigenValue_sum)
     print(each_contributions)

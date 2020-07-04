@@ -10,7 +10,7 @@ def getAverageDeduction():
     # 平均值
     averageDeductionValues = defaultdict(float)
     # 在样本中的排行位置
-    averageDeductionRanks = defaultdict(float)
+    # averageDeductionRanks = defaultdict(float)
 
     # 获得要取的cases
     sampleCaseList=SampleCaseList.getSampleCaseList()

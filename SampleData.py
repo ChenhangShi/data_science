@@ -13,42 +13,30 @@ import IncompleteRatio
 对象属性:
 id
 平均扣分
-平均扣分rank
 未完成比例
-未完成比例rank
 平均时间
-平均时间rank
 平均提交次数
-平均提交次数rank
 平均行数
-平均行数rank
 面向用例比例
-面向用例比例rank
 '''
 
 
 class Case(object):
     def __init__(self,caseId,
-                 averageDeduction,  # averageDeductionRank,
-                 averageLineNum,  # averageLineNumRank,
-                 averageTime,  # averageTimeRank,
-                 averageUploadNum,  # averageUploadNumRank,
-                 cheatRatio,  # cheatRatioRank,
-                 incompleteRatio,  # incompleteRatioRank
+                 averageDeduction,
+                 averageLineNum,
+                 averageTime,
+                 averageUploadNum,
+                 cheatRatio,
+                 incompleteRatio,
                  ):
         self.caseId=caseId
         self.averageDeduction=averageDeduction
-        # self.averageDeductionRank=averageDeductionRank
         self.incompleteRatio=incompleteRatio
-        # self.incompleteRatioRank=incompleteRatioRank
         self.averageTime=averageTime
-        # self.averageTimeRank=averageTimeRank
         self.averageUploadNum=averageUploadNum
-        # self.averageUploadNumRank=averageUploadNumRank
         self.averageLineNum = averageLineNum
-        # self.averageLineNumRank = averageLineNumRank
         self.cheatRatio = cheatRatio
-        # self.cheatRatioRank=cheatRatioRank
 
 
 def getSampleData():
