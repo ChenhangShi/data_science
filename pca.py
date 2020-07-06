@@ -15,13 +15,16 @@ class EigenMap(object):
 def do_pca():
     # data是List<Case>
     data = getSampleData()
+    # getSampleData运行时间很长，故在此处取出caseId的list，并且与降维之后的res组合成字典
+    case_id_list = [x.caseId for x in data]
+
     # 原始矩阵X
     X = np.mat(utils.caseListToMartix(data))
-    return myPCA(X)
+    return myPCA(X, case_id_list)
 
 
 # 传入一个矩阵 一行为一条记录 一列为一个特征
-def myPCA(X):
+def myPCA(X, case_id_list):
     # 第一步 原始数据的标准化
     # 样本数量
     n = len(X)
@@ -106,6 +109,10 @@ def myPCA(X):
     # 平均值avg和标准差sd 用于将新数据标准化
     # 投影矩阵W 也就是训练好的模型 用于将标准化的新数据降维
     # 主成分的分别贡献率 用于将降维的新数据综合
+
+    # 更新：
+    # 这里将caseId和res组合
+    res = dict(zip(case_id_list, res))
     return res, U, avg, sd, W, each_contributions
 
 
@@ -125,4 +132,4 @@ def libPCA(X):
     print('\n\n\n\n\n')
 
 
-do_pca()
+# do_pca()
