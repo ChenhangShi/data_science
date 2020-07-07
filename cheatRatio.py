@@ -25,14 +25,14 @@ def cheatRatio():
     is_cheat_judge_1 = defaultdict(float)
     is_cheat_judge_2 = defaultdict(float)  # 以后没有更改的话，考虑重命名：cheat_ratio_values
     # 在样本中排行的位置(由于目前只用了judge2，所以这样命名 以后没有更改的话，考虑重命名：cheat_ratio_ratios
-    is_cheat_judge_2_ratio = defaultdict(float)
+    # is_cheat_judge_2_ranks = defaultdict(float)
     values = []  # 排序用
     all_scores = defaultdict(list)  # 储存的是case_id : list(list)，是一个case的所有人的各次提交分数
     for case_id in sampleCaseList:
         is_cheat_judge_1[case_id] = 0
         is_cheat_judge_2[case_id] = 0
         all_scores[case_id] = []
-        is_cheat_judge_2_ratio[case_id] = 0
+        # is_cheat_judge_2_ranks[case_id] = 0
 
     # 第一部分
     f = open('test_data.json', encoding='utf-8')
@@ -94,17 +94,20 @@ def cheatRatio():
             if matched_pattern >= 3:
                 cheat_count_for_one_case += 1
         is_cheat_judge_2[case_id] = cheat_count_for_one_case / len(user_matches.values())
-        values.append(cheat_count_for_one_case / len(user_matches.values()))
+        # values.append(cheat_count_for_one_case / len(user_matches.values()))
         # print("case_id: ", case_id, "cheats: " ,cheat_count_for_one_case, "total users: ", len(user_matches.values()))
     # print(is_cheat_judge_2)
+
+    '''
     values.sort()
     for case_id in is_cheat_judge_2:
         # 该值
         value = is_cheat_judge_2[case_id]
         rank = values.index(value)
-        is_cheat_judge_2_ratio[case_id] = rank / len(values)
-    # print(is_cheat_judge_2_ratio)
-    return is_cheat_judge_2, is_cheat_judge_2_ratio
+        is_cheat_judge_2_ranks[case_id] = rank / len(values)
+    # print(is_cheat_judge_2_ranks)
+    '''
+    return is_cheat_judge_2  # , is_cheat_judge_2_ranks
 
 def analyse_scores(scores: list) -> float:
     """

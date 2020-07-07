@@ -2,20 +2,21 @@ import json
 
 
 def getSampleCaseList():
-    f=open('test_data.json',encoding='utf-8')
-    res=f.read()
-    data=json.loads(res)
+    f = open('test_data.json', encoding='utf-8')
+    res = f.read()
+    data = json.loads(res)
 
-    caseList=[]
+    caseList = []
     for userId in data:
-        cases=data[userId]['cases']
+        cases = data[userId]['cases']
         for case in cases:
-            caseId=case['case_id']
+            caseId = case['case_id']
             if caseId not in caseList:
                 caseList.append(caseId)
 
-    sampleCaseList=[]
-    for i in range(0,len(caseList),6):
+    sampleCaseList = []
+    # TODO 步长 或者分析全部的数据
+    for i in range(0, len(caseList),5):
         sampleCaseList.append(caseList[i])
     f.close()
     return sampleCaseList

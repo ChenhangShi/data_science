@@ -7,9 +7,13 @@ from collections import defaultdict
 def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
     sampleCaseList = SampleCaseList.getSampleCaseList()
     average_line_values = defaultdict(float)
-    average_line_ratios = defaultdict(float)
+
+    '''
+    average_line_ranks = defaultdict(float)
     # 排序用
     values = []
+    '''
+
     # 所有数据的路径
     data_path = os.getcwd() + "/data"
     for case_id in sampleCaseList:
@@ -20,7 +24,7 @@ def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
 
         # 这里对一个case进行统计
         average_line_values[case_id] = 0
-        average_line_ratios[case_id] = 0  # 顺便初始化
+        # average_line_ranks[case_id] = 0  # 顺便初始化
         count = 0
         # 遍历该case下面的所有main.py文件
         for user_files in os.listdir(cur_case_dir):
@@ -30,17 +34,18 @@ def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
                     average_line_values[case_id] += len(f.readlines())
                 # count += len(f.readlines())
         average_line_values[case_id] /= len(os.listdir(cur_case_dir))
-        values.append(average_line_values[case_id])
+        # values.append(average_line_values[case_id])
         # print("case_id:", case_id + " average line num:", "%.2f" % average_line_values[case_id])
-
+    '''
     values.sort()
     for case_id in average_line_values:
         value = average_line_values[case_id]
         rank = values.index(value)
-        average_line_ratios[case_id] = rank / len(values)
+        average_line_ranks[case_id] = rank / len(values)
     # print(average_line_values)
-    # print(average_line_ratios)
-    return average_line_values, average_line_ratios
+    # print(average_line_ranks)
+    '''
+    return average_line_values  # , average_line_ranks
 
 
 '''

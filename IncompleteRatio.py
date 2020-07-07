@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getAverageDeduction():
+def getIncompleteRatio():
 
     # 原始值
     d=defaultdict(int)
@@ -12,7 +12,7 @@ def getAverageDeduction():
     # 平均值
     incompleteRatioValues = defaultdict(float)
     # 在样本中的排行位置
-    incompleteRatioRatios = defaultdict(float)
+    # incompleteRatioRatios = defaultdict(float)
 
     # 获得要取的cases
     sampleCaseList=SampleCaseList.getSampleCaseList()
@@ -20,7 +20,7 @@ def getAverageDeduction():
     for caseId in sampleCaseList:
         d[caseId]=0
         incompleteRatioValues[caseId]=0.0
-        incompleteRatioRatios[caseId]=0.0
+        # incompleteRatioRatios[caseId]=0.0
 
     f=open('test_data.json',encoding='utf-8')
     res=f.read()
@@ -39,12 +39,14 @@ def getAverageDeduction():
                     d[caseId]+=1
 
     # 排序用
-    values=[]
+    # values=[]
     for caseId in d:
         incompleteRatio=d[caseId]/userNum[caseId]
         # 既加入字典 又加入list
         incompleteRatioValues[caseId]=incompleteRatio
-        values.append(incompleteRatio)
+        # values.append(incompleteRatio)
+
+    '''    
     values.sort()
 
     # 获得位置
@@ -59,6 +61,6 @@ def getAverageDeduction():
                 break
         # 转换成小数
         incompleteRatioRatios[caseId]=rank/len(values)
-
+    '''
     f.close()
-    return incompleteRatioValues,incompleteRatioRatios
+    return incompleteRatioValues  # ,incompleteRatioRatios
