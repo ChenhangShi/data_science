@@ -53,9 +53,3 @@ def getAverageUploadNum():
 
     f.close()
     return averageUploadNum  # ,averageUploadSeqRanks
-
-if __name__ == '__main__':
-    d = getAverageUploadNum()[0]
-    for key, value in d.items():
-       print(key)
-       print(value)
