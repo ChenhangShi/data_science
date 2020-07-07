@@ -5,11 +5,47 @@ from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 
 
-# 记录特征值和它对应的是哪个属性
 class EigenMap(object):
+    # 记录特征值和它对应的是哪个属性
     def __init__(self, columnIndex, eigenValue):
         self.columnIndex = columnIndex
         self.eigenValue = eigenValue
+
+
+class PcaModal(object):
+    # 训练好的模型 avg是样本每一列的平均值，sd是样本每一列的标准差，W是投影矩阵，each_contributions是每个主成分的方差贡献率
+    # 平均值avg和标准差sd 用于将新数据标准化
+    # 投影矩阵W 用于将标准化的新数据降维
+    # 主成分的分别贡献率 用于将降维的新数据综合
+    def __init__(self, avg, sd, W, each_contributions):
+        self.avg = avg
+        self.sd = sd
+        self.W = W
+        self.each_contributions = each_contributions
+
+    # 对于新的数据，直接转换
+    # data是List<Case>
+    def transform_case_obj(self, data):
+        case_id_list = [x.caseId for x in data]
+        X = np.mat(utils.caseListToMartix(data))
+        return self.transform_matrix(X, case_id_list)
+
+    # X是新数据的6列的矩阵
+    # case_id_list是对应的caseId
+    def transform_matrix(self, X, case_id_list=None):
+        n = len(X)
+        m = len(self.each_contributions)
+        Z = (X - self.avg) / self.sd
+        U = np.dot(Z, self.W)
+        res = []
+        for i in range(n):
+            s = 0
+            for j in range(m):
+                s += U[i, j] * self.each_contributions[j]
+            res.append(s)
+        if case_id_list:
+            res = dict(zip(case_id_list, res))
+        return U, res
 
 
 def do_pca():
@@ -68,8 +104,6 @@ def myPCA(X, case_id_list):
         selectedCols.append(eigenMaps[m].columnIndex)
         eigenValue_cur += eigenMaps[m].eigenValue
         total_contribution = eigenValue_cur / eigenValue_sum
-    print(selectedCols)
-    print('\n\n\n\n\n')
     # m置为选了几个
     m += 1
 
@@ -81,8 +115,6 @@ def myPCA(X, case_id_list):
         select_matrix.append(eigenVec[:, eigenMaps[i].columnIndex])
     # 投影矩阵W
     W = np.concatenate(select_matrix, axis=1)
-    print(W.T)
-    print('\n\n\n\n')
     # Z * W 生成主成分结果U Z有样本容量个行，特征数个列 W有特征数个行，m个列
     # 由于特征向量的符号和调pca库的特征向量符号相反 结果也符号相反
     U = np.dot(Z, W)
@@ -94,26 +126,20 @@ def myPCA(X, case_id_list):
     each_contributions = []
     for i in range(m):
         each_contributions.append(eigenMaps[i].eigenValue / eigenValue_sum)
-    print(each_contributions)
-    print('\n\n\n')
     for i in range(n):
         s = 0
         for j in range(m):
             s += U[i, j] * each_contributions[j]
         res.append(s)
+    # 将caseId和res组合
+    res = dict(zip(case_id_list, res))
     print(res)
     print('\n\n\n')
     # 要返回的：
     # 综合结果res
     # 对样本pca得到的结果U
-    # 平均值avg和标准差sd 用于将新数据标准化
-    # 投影矩阵W 也就是训练好的模型 用于将标准化的新数据降维
-    # 主成分的分别贡献率 用于将降维的新数据综合
-
-    # 更新：
-    # 这里将caseId和res组合
-    res = dict(zip(case_id_list, res))
-    return res, U, avg, sd, W, each_contributions
+    # 训练好的模型PcaModal
+    return res, U, PcaModal(avg, sd, W, each_contributions)
 
 
 # 调用库
@@ -130,6 +156,3 @@ def libPCA(X):
     print()
     print(pca.explained_variance_ratio_)
     print('\n\n\n\n\n')
-
-
-# do_pca()
