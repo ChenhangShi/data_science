@@ -1,4 +1,3 @@
-import SampleCaseList
 import json
 from collections import defaultdict
 

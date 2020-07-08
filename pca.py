@@ -1,4 +1,3 @@
-from SampleData import getSampleData
 import utils
 import numpy as np
 from sklearn.decomposition import PCA
@@ -50,7 +49,7 @@ class PcaModal(object):
 
 def do_pca(from_which):
     # data是List<Case>
-    data = getSampleData(from_which)
+    data = utils.getSampleData(from_which)
     # getSampleData运行时间很长，故在此处取出caseId的list，并且与降维之后的res组合成字典
     case_id_list = [x.caseId for x in data]
 
