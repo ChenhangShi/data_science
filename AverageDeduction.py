@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getAverageDeduction():
+def getAverageDeduction(from_which):
 
     # 原始值
     d=defaultdict(list)
@@ -13,7 +13,7 @@ def getAverageDeduction():
     # averageDeductionRanks = defaultdict(float)
 
     # 获得要取的cases
-    sampleCaseList=SampleCaseList.getSampleCaseList()
+    sampleCaseList=SampleCaseList.getSampleCaseList(from_which)
 
     f=open('test_data.json',encoding='utf-8')
     res=f.read()
