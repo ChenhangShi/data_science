@@ -5,6 +5,8 @@
 """
 
 import matplotlib.pyplot as plt
+from pca import do_pca  # 这里先别删掉，main中会用到pca
+
 
 # 总过程
 def do_visualization(raw_data):
@@ -59,3 +61,9 @@ def visualization(normalized_data):
 统计各个区间题目个数的结果：
 [54, 35, 38, 24, 8, 6, 4, 4, 2, 2]
 """
+
+'''
+if __name__ == '__main__':
+    res = do_pca(4)[0]
+    do_visualization(res)
+'''
