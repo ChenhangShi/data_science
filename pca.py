@@ -151,7 +151,6 @@ def libPCA(X):
     print(U2)
     print()
     print(pca.explained_variance_ratio_)
-    print('\n\n\n\n\n')
 
 
 if __name__ == '__main__':
