@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getIncompleteRatio(from_which):
+def getIncompleteRatio(sampleCaseList):
 
     # 原始值
     d=defaultdict(int)
@@ -11,11 +11,7 @@ def getIncompleteRatio(from_which):
     userNum=defaultdict(int)
     # 平均值
     incompleteRatioValues = defaultdict(float)
-    # 在样本中的排行位置
-    # incompleteRatioRatios = defaultdict(float)
 
-    # 获得要取的cases
-    sampleCaseList=SampleCaseList.getSampleCaseList(from_which)
     # 如果一道题所有人都完成了 结果中会缺失 所以先初始化
     for caseId in sampleCaseList:
         d[caseId]=0

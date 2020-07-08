@@ -4,8 +4,7 @@ import os
 from collections import defaultdict
 
 
-def getAverageLineNum(from_which):  # 返回一个字典case_id : averageLineNum
-    sampleCaseList = SampleCaseList.getSampleCaseList(from_which)
+def getAverageLineNum(sampleCaseList):  # 返回一个字典case_id : averageLineNum
     average_line_values = defaultdict(float)
 
     '''

@@ -5,7 +5,7 @@ from collections import defaultdict
 import re
 
 
-def cheatRatio(from_which):
+def cheatRatio(sampleCaseList):
     """
     统计每道题目面向用例的比例
     # （暂未生效）假设： 所有面向用例的题目均为满分
@@ -20,7 +20,6 @@ def cheatRatio(from_which):
     # 未来可以扩充的部分：1、查找得分情况，根据得分综合判断  2、代码文本匹配，假设先提交者为原创  3、过滤不是python的代码
     :return: 返回字典， case_id : cheat_Ratio 对应面向用例的比例
     """
-    sampleCaseList = SampleCaseList.getSampleCaseList(from_which)
 
     is_cheat_judge_1 = defaultdict(float)
     is_cheat_judge_2 = defaultdict(float)  # 以后没有更改的话，考虑重命名：cheat_ratio_values

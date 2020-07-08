@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getAverageTime(from_which):
+def getAverageTime(sampleCaseList):
 
     # 原始值，一个case对应的所有user的提交次数,存放在一个list里
     # defaultdict和dict的区别在于当key不存在时，会返回一个默认值
@@ -11,10 +11,6 @@ def getAverageTime(from_which):
     d = defaultdict(list)
     # 平均提交次数
     averageTime = defaultdict(float)
-    # 用来获取排序后的caseId的提交时间
-    averageUploadSeqRanks = defaultdict(float)
-    # 获得要取的系统抽样后的cases
-    sampleCaseList = SampleCaseList.getSampleCaseList(from_which)
 
     f = open('test_data.json',encoding='utf-8')
     res = f.read()

@@ -15,7 +15,6 @@ def getSampleCaseList(from_which):
                 caseList.append(caseId)
 
     sampleCaseList = []
-    # TODO 步长 或者分析全部的数据
     for i in range(from_which, len(caseList),5):
         sampleCaseList.append(caseList[i])
     f.close()

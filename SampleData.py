@@ -40,12 +40,12 @@ class Case(object):
 
 def getSampleData(from_which):
     caseList = SampleCaseList.getSampleCaseList(from_which)
-    averageDeductionValues = AverageDeduction.getAverageDeduction(from_which)
-    averageLineNumValues = AverageLineNum.getAverageLineNum(from_which)
-    averageTimeValues = AverageTime.getAverageTime(from_which)
-    averageUploadNumValues = AverageUploadNum.getAverageUploadNum(from_which)
-    cheatRatioValues = cheatRatio.cheatRatio(from_which)
-    incompleteRatioValues = IncompleteRatio.getIncompleteRatio(from_which)
+    averageDeductionValues = AverageDeduction.getAverageDeduction(caseList)
+    averageLineNumValues = AverageLineNum.getAverageLineNum(caseList)
+    averageTimeValues = AverageTime.getAverageTime(caseList)
+    averageUploadNumValues = AverageUploadNum.getAverageUploadNum(caseList)
+    cheatRatioValues = cheatRatio.cheatRatio(caseList)
+    incompleteRatioValues = IncompleteRatio.getIncompleteRatio(caseList)
 
     sampleData = []
     for caseId in caseList:

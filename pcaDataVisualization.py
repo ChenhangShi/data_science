@@ -4,10 +4,7 @@
 3、数据的可视化
 """
 
-from pca import do_pca
 import matplotlib.pyplot as plt
-from SampleData import getSampleData
-
 
 # 总过程
 def do_visualization(raw_data):
