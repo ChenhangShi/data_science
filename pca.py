@@ -3,7 +3,6 @@ import utils
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from scipy import stats as ss
 from collections import defaultdict, OrderedDict
 import json
 
