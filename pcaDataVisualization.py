@@ -10,14 +10,13 @@ from SampleData import getSampleData
 
 
 # 总过程
-def do_visualization():
-    visualization(normalization())
+def do_visualization(raw_data):
+    visualization(normalization(raw_data))
     return 0
 
 
 # 数据标准化，采用（x - min） / (max - min)
-def normalization():
-    raw_data = do_pca()[0]
+def normalization(raw_data):
     raw_data = sorted(raw_data.items(), key=lambda item: item[1])
     raw_data = [list(x) for x in raw_data]
     min_num = raw_data[0][1]
@@ -56,9 +55,6 @@ def visualization(normalized_data):
     #     plt.text(a, b + 0.05, '%.0f' % b, ha='center', va='bottom', fontsize=7)
     plt.show()
 
-
-if __name__ == '__main__':
-    do_visualization()
 
 """
 标准化之后的运行结果：

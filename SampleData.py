@@ -6,7 +6,6 @@ import AverageUploadNum
 import cheatRatio
 import IncompleteRatio
 
-
 '''
 整合数据到对象
 
@@ -22,7 +21,7 @@ id
 
 
 class Case(object):
-    def __init__(self,caseId,
+    def __init__(self, caseId,
                  averageDeduction,
                  averageLineNum,
                  averageTime,
@@ -30,26 +29,25 @@ class Case(object):
                  cheatRatio,
                  incompleteRatio,
                  ):
-        self.caseId=caseId
-        self.averageDeduction=averageDeduction
-        self.incompleteRatio=incompleteRatio
-        self.averageTime=averageTime
-        self.averageUploadNum=averageUploadNum
+        self.caseId = caseId
+        self.averageDeduction = averageDeduction
+        self.incompleteRatio = incompleteRatio
+        self.averageTime = averageTime
+        self.averageUploadNum = averageUploadNum
         self.averageLineNum = averageLineNum
         self.cheatRatio = cheatRatio
 
 
-def getSampleData():
+def getSampleData(from_which):
+    caseList = SampleCaseList.getSampleCaseList(from_which)
+    averageDeductionValues = AverageDeduction.getAverageDeduction(from_which)
+    averageLineNumValues = AverageLineNum.getAverageLineNum(from_which)
+    averageTimeValues = AverageTime.getAverageTime(from_which)
+    averageUploadNumValues = AverageUploadNum.getAverageUploadNum(from_which)
+    cheatRatioValues = cheatRatio.cheatRatio(from_which)
+    incompleteRatioValues = IncompleteRatio.getIncompleteRatio(from_which)
 
-    caseList = SampleCaseList.getSampleCaseList()
-    averageDeductionValues = AverageDeduction.getAverageDeduction()
-    averageLineNumValues = AverageLineNum.getAverageLineNum()
-    averageTimeValues = AverageTime.getAverageTime()
-    averageUploadNumValues = AverageUploadNum.getAverageUploadNum()
-    cheatRatioValues = cheatRatio.cheatRatio()
-    incompleteRatioValues = IncompleteRatio.getIncompleteRatio()
-
-    sampleData=[]
+    sampleData = []
     for caseId in caseList:
         sampleData.append(Case(caseId,
                                averageDeductionValues[caseId],
@@ -58,10 +56,8 @@ def getSampleData():
                                averageUploadNumValues[caseId],
                                cheatRatioValues[caseId],
                                incompleteRatioValues[caseId]))
-    for i in range(0, len(sampleData)):
-        print(sampleData[i].caseId,sampleData[i].averageTime,sampleData[i].averageUploadNum,sampleData[i].cheatRatio
-              ,sampleData[i].averageDeduction,sampleData[i].averageLineNum,sampleData[i].incompleteRatio)
     return sampleData
+
 
 if __name__ == '__main__':
     d = getSampleData()

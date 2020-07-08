@@ -4,8 +4,8 @@ import os
 from collections import defaultdict
 
 
-def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
-    sampleCaseList = SampleCaseList.getSampleCaseList()
+def getAverageLineNum(from_which):  # 返回一个字典case_id : averageLineNum
+    sampleCaseList = SampleCaseList.getSampleCaseList(from_which)
     average_line_values = defaultdict(float)
 
     '''
@@ -46,15 +46,6 @@ def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
     # print(average_line_ranks)
     '''
     return average_line_values  # , average_line_ranks
-
-
-
-if __name__ == '__main__':
-    d=getAverageLineNum()
-    for key,value in d.items():
-        if key==2394:
-            print(value)
-
 
 
 '''结果先贴在这里

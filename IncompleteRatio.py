@@ -3,7 +3,7 @@ import json
 from collections import defaultdict
 
 
-def getIncompleteRatio():
+def getIncompleteRatio(from_which):
 
     # 原始值
     d=defaultdict(int)
@@ -15,7 +15,7 @@ def getIncompleteRatio():
     # incompleteRatioRatios = defaultdict(float)
 
     # 获得要取的cases
-    sampleCaseList=SampleCaseList.getSampleCaseList()
+    sampleCaseList=SampleCaseList.getSampleCaseList(from_which)
     # 如果一道题所有人都完成了 结果中会缺失 所以先初始化
     for caseId in sampleCaseList:
         d[caseId]=0
