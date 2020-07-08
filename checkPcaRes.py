@@ -53,7 +53,7 @@ def check_pca_res(from_which):
     check_score(res)
     another_res = do_pca(from_which)[0]
     check_distribution(res, another_res)
-    print('visual')
+    print('visual-----------------------------------------------------')
     do_visualization(res)
     do_visualization(another_res)
 
