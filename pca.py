@@ -4,6 +4,8 @@ import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from scipy import stats as ss
+from collections import defaultdict, OrderedDict
+import json
 
 
 class EigenMap(object):
@@ -136,6 +138,17 @@ def myPCA(X, case_id_list):
     res = dict(zip(case_id_list, res))
     print('res:')
     print(res)
+    easyDic=defaultdict(list)
+    hardDic=defaultdict(list)
+    # easyDic['2425']=res['2425']
+    # easyDic['2388']=res['2388']
+    # test_dict={
+    #     'easyDic':easyDic,
+    #     'hardDic'
+    # }
+    # json_str = json.dumps(test_dict, indent=4)
+    # with open('easyData.json', 'a+') as json_file:
+    #     json_file.write(json_str)
     # 测试的比较简单的题目，发现都是小于0的，符合预期
     print(2425,res['2425'])
     print(2388, res['2388'])

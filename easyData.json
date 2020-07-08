@@ -1,0 +1,11 @@
+{
+    "version": "1.0",
+    "results": {
+        "2425": -0.844424738203874,
+        "2388": -0.961568235324383
+    },
+    "explain": {
+        "used": true,
+        "details": "this is for json test"
+    }
+}
