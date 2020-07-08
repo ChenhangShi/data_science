@@ -48,10 +48,14 @@ def getAverageLineNum():  # 返回一个字典case_id : averageLineNum
     return average_line_values  # , average_line_ranks
 
 
-'''
+
 if __name__ == '__main__':
-    getAverageLineNum()
-'''
+    d=getAverageLineNum()
+    for key,value in d.items():
+        if key==2394:
+            print(value)
+
+
 
 '''结果先贴在这里
 case_id: 2908 average line num: 16.91

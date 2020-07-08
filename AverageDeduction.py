@@ -57,3 +57,11 @@ def getAverageDeduction():
 
     f.close()
     return averageDeductionValues  # , averageDeductionRanks
+
+# if __name__ == '__main__':
+#     d = getAverageDeduction()
+#     for key, value in d.items():
+#         if value==0.0:
+#             print(key)
+#        # print(key)
+#        # print(value)

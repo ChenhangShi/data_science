@@ -58,4 +58,12 @@ def getSampleData():
                                averageUploadNumValues[caseId],
                                cheatRatioValues[caseId],
                                incompleteRatioValues[caseId]))
+    for i in range(0, len(sampleData)):
+        print(sampleData[i].caseId,sampleData[i].averageTime,sampleData[i].averageUploadNum,sampleData[i].cheatRatio
+              ,sampleData[i].averageDeduction,sampleData[i].averageLineNum,sampleData[i].incompleteRatio)
     return sampleData
+
+if __name__ == '__main__':
+    d = getSampleData()
+    for con in d:
+        print(con)

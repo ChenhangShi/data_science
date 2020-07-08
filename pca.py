@@ -3,6 +3,7 @@ import utils
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+from scipy import stats as ss
 
 
 class EigenMap(object):
@@ -133,7 +134,65 @@ def myPCA(X, case_id_list):
         res.append(s)
     # 将caseId和res组合
     res = dict(zip(case_id_list, res))
+    print('res:')
     print(res)
+    # 测试的比较简单的题目，发现都是小于0的，符合预期
+    print(2425,res['2425'])
+    print(2388, res['2388'])
+    print(2386,res['2386'])
+    print(2280, res['2280'])
+    print(2358, res['2358'])
+    print(2278, res['2278'])
+    print(2453, res['2453'])
+    print(2122, res['2122'])
+    print(2063, res['2063'])
+    print(2847, res['2847'])
+    print(2816, res['2816'])
+    print(2801, res['2801'])
+    # 测试的比较难的题目,发现都是大于0.6的，符合预期
+    # 2301的作弊率非常高，因而算出来的结果也很大，虽然代码行数、花费时间都很小，但综合算出来的结果仍然很大，符合预期
+    print(2301, res['2301'])
+    print(2310, res['2310'])
+    print(2954, res['2954'])
+    print(2969, res['2969'])
+    print(2348, res['2348'])
+    print(2588, res['2588'])
+    print(2947, res['2947'])
+    print(2887, res['2887'])
+    print(2091, res['2091'])
+    print(2383, res['2383'])
+    print(2273, res['2273'])
+    print(2085, res['2085'])
+    #  构造两组数据，看这两组数据是否同分布,用的是kolmogorov-Smirnov检验
+    l1 = []
+    l2 = []
+    l1.append(res['2425'])
+    l1.append(res['2388'])
+    l1.append(res['2386'])
+    l1.append(res['2280'])
+    l1.append(res['2358'])
+    l1.append(res['2278'])
+    l1.append(res['2301'])
+    l1.append(res['2310'])
+    l1.append(res['2954'])
+    l1.append(res['2969'])
+    l1.append(res['2348'])
+    l1.append(res['2588'])
+    l2.append(res['2453'])
+    l2.append(res['2122'])
+    l2.append(res['2063'])
+    l2.append(res['2847'])
+    l2.append(res['2816'])
+    l2.append(res['2801'])
+    l2.append(res['2947'])
+    l2.append(res['2887'])
+    l2.append(res['2091'])
+    l2.append(res['2383'])
+    l2.append(res['2273'])
+    l2.append(res['2085'])
+    print('判断是否同分布')
+    print(ss.kstest(l1,l2))
+    #pvalue=0.8689816711757754>0.05,所以同分布
     print('\n\n\n')
     # 要返回的：
     # 综合结果res
@@ -156,3 +215,7 @@ def libPCA(X):
     print()
     print(pca.explained_variance_ratio_)
     print('\n\n\n\n\n')
+
+
+if __name__ == '__main__':
+    res,U,pcaModal = do_pca()
