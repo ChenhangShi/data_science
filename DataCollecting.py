@@ -3,6 +3,14 @@ import os
 import re
 from collections import defaultdict
 
+'''
+收集6个属性
+获取所有的caseId
+按步长为5获取样本的caseId，可指定起始位置
+根据caseId的list获取List<Case>
+获取训练集和测试集的List<Case>
+'''
+
 
 # 平均扣分
 def getAverageDeduction(sampleCaseList):
@@ -24,46 +32,17 @@ def getAverageDeduction(sampleCaseList):
                 deduction = 100 - case['final_score']
                 d[caseId].append(deduction)
 
-    '''
-    # 排序用
-    values=[]
-    '''
-
     for caseId in d:
         averageDeduction = sum(d[caseId]) / len(d[caseId])
-        # 既加入字典 又加入list
         averageDeductionValues[caseId] = averageDeduction
-        # values.append(averageDeduction)
-    # values.sort()
-
-    '''
-    # 获得位置
-    for caseId in averageDeductionValues:
-        # 该值
-        value=averageDeductionValues[caseId]
-        rank=0
-        # 遍历查找排第几
-        for i in range(len(values)):
-            if value==values[i]:
-                rank=i
-                break
-        # 转换成小数
-        averageDeductionRanks[caseId]=rank/len(values)
-    '''
 
     f.close()
-    return averageDeductionValues  # , averageDeductionRanks
+    return averageDeductionValues
 
 
 # 平均行数
 def getAverageLineNum(sampleCaseList):  # 返回一个字典case_id : averageLineNum
     average_line_values = defaultdict(float)
-
-    '''
-    average_line_ranks = defaultdict(float)
-    # 排序用
-    values = []
-    '''
 
     # 所有数据的路径
     data_path = os.getcwd() + "/data"
@@ -85,18 +64,8 @@ def getAverageLineNum(sampleCaseList):  # 返回一个字典case_id : averageLin
                     average_line_values[case_id] += len(f.readlines())
                 # count += len(f.readlines())
         average_line_values[case_id] /= len(os.listdir(cur_case_dir))
-        # values.append(average_line_values[case_id])
-        # print("case_id:", case_id + " average line num:", "%.2f" % average_line_values[case_id])
-    '''
-    values.sort()
-    for case_id in average_line_values:
-        value = average_line_values[case_id]
-        rank = values.index(value)
-        average_line_ranks[case_id] = rank / len(values)
-    # print(average_line_values)
-    # print(average_line_ranks)
-    '''
-    return average_line_values  # , average_line_ranks
+
+    return average_line_values
 
 
 # 平均用时（分钟）
@@ -129,26 +98,12 @@ def getAverageTime(sampleCaseList):
                     costTime = (endTime - beginTime) / 60000
                     d[caseId].append(costTime)
 
-    # 找到某个caseId在整体caseId中的sequence
-    # sequence = []
     for caseId in d:
         averageTimeTemp = sum(d[caseId]) / len(d[caseId])
         averageTime[caseId] = averageTimeTemp
-        # sequence.append(averageTimeTemp)
 
-    '''
-    sequence.sort()
-    for caseId in averageTime:
-        temp = averageTime[caseId]
-        seq = 0
-        for i in range(len(sequence)):
-            if temp == sequence[i]:
-                seq = i
-                break
-        averageUploadSeqRanks[caseId]=seq/len(sequence)
-    '''
     f.close()
-    return averageTime  # ,averageUploadSeqRanks
+    return averageTime
 
 
 # 平均提交次数
@@ -175,25 +130,9 @@ def getAverageUploadNum(sampleCaseList):
                 uploadNum = len(case['upload_records'])
                 d[caseId].append(uploadNum)
 
-    # 找到某个caseId在整体caseId中的sequence
-    # sequence=[]
     for caseId in d:
         averageUpload = sum(d[caseId]) / len(d[caseId])
         averageUploadNum[caseId] = averageUpload
-        # sequence.append(averageUpload)
-
-    '''    
-    sequence.sort()
-
-    for caseId in averageUploadNum:
-        temp = averageUploadNum[caseId]
-        seq = 0
-        for i in range(len(sequence)):
-            if temp == sequence[i]:
-                seq = i
-                break
-        averageUploadSeqRanks[caseId]=seq/len(sequence)
-    '''
 
     f.close()
     return averageUploadNum  # ,averageUploadSeqRanks
@@ -218,15 +157,11 @@ def cheatRatio(sampleCaseList):
 
     is_cheat_judge_1 = defaultdict(float)
     is_cheat_judge_2 = defaultdict(float)  # 以后没有更改的话，考虑重命名：cheat_ratio_values
-    # 在样本中排行的位置(由于目前只用了judge2，所以这样命名 以后没有更改的话，考虑重命名：cheat_ratio_ratios
-    # is_cheat_judge_2_ranks = defaultdict(float)
-    values = []  # 排序用
     all_scores = defaultdict(list)  # 储存的是case_id : list(list)，是一个case的所有人的各次提交分数
     for case_id in sampleCaseList:
         is_cheat_judge_1[case_id] = 0
         is_cheat_judge_2[case_id] = 0
         all_scores[case_id] = []
-        # is_cheat_judge_2_ranks[case_id] = 0
 
     # 第一部分
     f = open('test_data.json', encoding='utf-8')
@@ -288,20 +223,8 @@ def cheatRatio(sampleCaseList):
             if matched_pattern >= 3:
                 cheat_count_for_one_case += 1
         is_cheat_judge_2[case_id] = cheat_count_for_one_case / len(user_matches.values())
-        # values.append(cheat_count_for_one_case / len(user_matches.values()))
-        # print("case_id: ", case_id, "cheats: " ,cheat_count_for_one_case, "total users: ", len(user_matches.values()))
-    # print(is_cheat_judge_2)
 
-    '''
-    values.sort()
-    for case_id in is_cheat_judge_2:
-        # 该值
-        value = is_cheat_judge_2[case_id]
-        rank = values.index(value)
-        is_cheat_judge_2_ranks[case_id] = rank / len(values)
-    # print(is_cheat_judge_2_ranks)
-    '''
-    return is_cheat_judge_2  # , is_cheat_judge_2_ranks
+    return is_cheat_judge_2
 
 
 def analyse_scores(scores: list) -> float:
@@ -393,7 +316,6 @@ def getIncompleteRatio(sampleCaseList):
     for caseId in sampleCaseList:
         d[caseId] = 0
         incompleteRatioValues[caseId] = 0.0
-        # incompleteRatioRatios[caseId]=0.0
 
     f = open('test_data.json', encoding='utf-8')
     res = f.read()
@@ -415,26 +337,8 @@ def getIncompleteRatio(sampleCaseList):
     # values=[]
     for caseId in d:
         incompleteRatio = d[caseId] / userNum[caseId]
-        # 既加入字典 又加入list
         incompleteRatioValues[caseId] = incompleteRatio
-        # values.append(incompleteRatio)
 
-    '''    
-    values.sort()
-
-    # 获得位置
-    for caseId in incompleteRatioValues:
-        # 该值
-        value=incompleteRatioValues[caseId]
-        rank=0
-        # 遍历查找排第几
-        for i in range(len(values)):
-            if value==values[i]:
-                rank=i
-                break
-        # 转换成小数
-        incompleteRatioRatios[caseId]=rank/len(values)
-    '''
     f.close()
     return incompleteRatioValues  # ,incompleteRatioRatios
 
