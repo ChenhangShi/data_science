@@ -1,4 +1,5 @@
 import utils
+from DataCollecting import getSampleData
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -26,7 +27,7 @@ class PcaModal(object):
     # data是List<Case>
     def transform_case_obj(self, data):
         case_id_list = [x.caseId for x in data]
-        X = np.mat(utils.caseListToMartix(data))
+        X = utils.caseListToMartix(data)
         return self.transform_matrix(X, case_id_list)
 
     # X是新数据的6列的矩阵
@@ -49,12 +50,12 @@ class PcaModal(object):
 
 def do_pca(from_which):
     # data是List<Case>
-    data = utils.getSampleData(from_which)
+    data = getSampleData(from_which)
     # getSampleData运行时间很长，故在此处取出caseId的list，并且与降维之后的res组合成字典
     case_id_list = [x.caseId for x in data]
 
     # 原始矩阵X
-    X = np.mat(utils.caseListToMartix(data))
+    X = utils.caseListToMartix(data)
     return myPCA(X, case_id_list)
 
 
