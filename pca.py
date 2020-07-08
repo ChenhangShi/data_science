@@ -3,8 +3,6 @@ import utils
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
-from collections import defaultdict, OrderedDict
-import json
 
 
 class EigenMap(object):
@@ -133,9 +131,6 @@ def myPCA(X, case_id_list):
         res.append(s)
     # 将caseId和res组合
     res = dict(zip(case_id_list, res))
-    print('res:')
-    print(res)
-    print('\n\n\n')
     # 要返回的：
     # 综合结果res
     # 对样本pca得到的结果U
