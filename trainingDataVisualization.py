@@ -3,7 +3,8 @@ from DataCollecting import getTraingSetAndTestSet  # 这里别删，main中会�
 import matplotlib.pyplot as plt
 
 section_num = 40  # 这里暂定把数据分为40个区间 （训练数据） （每个区间的平均题目数量和pca的可视化保持一致）
-
+# 比较尴尬的是在pca数据可视化文件中，这个名字的变量代表各区间的题目数量
+# 在本文件中，各区间的题目数量用section_data表示
 
 # 如果用这个文件跑测试数据到话记得改一下 （建议改为10）
 
@@ -18,8 +19,6 @@ def do_visualization(raw_data):
     plt.figure(figsize=(19.2, 10.8))
     plt.tick_params(labelsize=6)
     # 中文乱码的处理
-    # plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
-    # plt.rcParams['axes.unicode_minus'] = False
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.rcParams['axes.unicode_minus'] = False
 
@@ -49,12 +48,14 @@ def determine_section_len(raw_data):
         else:
             left_border[i] = int(left_border[i] * 100) / 100
     # 生成x轴
+
     x_axis = []
     for i in range(0, section_num - 1):
         x_axis.append("{}-{}".format(left_border[i], left_border[i + 1]))
     x_axis.append("{}-{}".format(left_border[-1], left_border[-1] + section_len))
     # 计算x轴数据源
-    section_data = [0 for i in range(0, section_num)]  # x 轴数据源
+
+    section_data = [0 for i in range(0, section_num)]  # x 轴数据源，表示每个区间有多少题目
     border = left_border[:]  # 边界数组，其实就是左边界数组多加一项，便于统计x轴数据源
     border.append(border[-1] + section_len)
     border_ptr = 0  # 左边界数组指针

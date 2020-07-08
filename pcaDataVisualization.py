@@ -11,7 +11,6 @@ from pca import do_pca  # 这里先别删掉，main中会用到pca
 # 总过程
 def do_visualization(raw_data):
     visualization(normalization(raw_data))
-    return 0
 
 
 # 数据标准化，采用（x - min） / (max - min)
@@ -38,8 +37,6 @@ def visualization(normalized_data):
     # 绘图
 
     # 中文乱码的处理
-    # plt.rcParams['font.sans-serif'] = ['Microsoft YaHei']
-    # plt.rcParams['axes.unicode_minus'] = False
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.rcParams['axes.unicode_minus'] = False
 
@@ -50,8 +47,6 @@ def visualization(normalized_data):
     # 为每个条形图添加数值标签
     for x, y in enumerate(section_num):
         plt.text(x, y, '%s' % y, ha='center')
-    # for a, b in zip(x, y):
-    #     plt.text(a, b + 0.05, '%.0f' % b, ha='center', va='bottom', fontsize=7)
     plt.show()
 
 
@@ -64,6 +59,6 @@ def visualization(normalized_data):
 
 '''
 if __name__ == '__main__':
-    res = do_pca(4)[0]
+    res = do_pca(0)[0]
     do_visualization(res)
 '''
