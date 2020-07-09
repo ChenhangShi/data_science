@@ -2,7 +2,7 @@ from pca import do_pca_for_training_data  # 这里别删，main中会用到
 from DataCollecting import getTraingSetAndTestSet  # 这里别删，main中会用到
 import matplotlib.pyplot as plt
 
-section_num = 40  # 这里暂定把数据分为40个区间 （训练数据） （每个区间的平均题目数量和pca的可视化保持一致）
+section_num = 80  # 这里暂定把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的两倍）
 
 
 # 比较尴尬的是在pca数据可视化文件中，这个名字的变量代表各区间的题目数量
@@ -19,7 +19,7 @@ def do_visualization(raw_data):
 
     # 设置图片大小，以及横轴字体大小，如果用这个文件跑测试数据的话记得改一下
     plt.figure(figsize=(19.2, 10.8))
-    plt.tick_params(labelsize=7)
+    plt.tick_params(labelsize=5)
     # 中文乱码的处理
     plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
     plt.rcParams['axes.unicode_minus'] = False
@@ -27,7 +27,7 @@ def do_visualization(raw_data):
     plt.bar(range(len(section_data)), section_data, align='center', color='steelblue', alpha=0.8)
     plt.ylabel('数量')
     plt.title('各难度区间题目个数  总数{}'.format(sum(section_data)))
-    plt.xticks(range(len(x_axis)), x_axis, rotation=-15)  # 横坐标字倾斜 这样小屏幕时字不会叠在一起
+    plt.xticks(range(len(x_axis)), x_axis, rotation=-20)  # 横坐标字倾斜 这样小屏幕时字不会叠在一起
     # 为每个条形图添加数值标签
     for x, y in enumerate(section_data):
         plt.text(x, y, '%s' % y, ha='center')
