@@ -1,5 +1,5 @@
 from collections import defaultdict
-from pca import do_pca
+from pca import do_pca_for_sample_data
 from scipy import stats as ss
 from pcaDataVisualization import do_visualization
 import json
@@ -54,9 +54,9 @@ def check_distribution(res, another_res):
 
 
 def check_pca_res(from_which):
-    res = do_pca(0)[0]
+    res = do_pca_for_sample_data(0)[0]
     check_score(res)
-    another_res = do_pca(from_which)[0]
+    another_res = do_pca_for_sample_data(from_which)[0]
     check_distribution(res, another_res)
     do_visualization(res)
     do_visualization(another_res)

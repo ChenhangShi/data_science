@@ -48,7 +48,7 @@ class PcaModal(object):
         return U, res
 
 
-def do_pca(from_which):
+def do_pca_for_sample_data(from_which):
     # data是List<Case>
     data = getSampleData(from_which)
     # getSampleData运行时间很长，故在此处取出caseId的list，并且与降维之后的res组合成字典
@@ -162,4 +162,4 @@ def libPCA(X):
 
 
 if __name__ == '__main__':
-    r, u, pcaModal = do_pca(0)
+    r, u, pcaModal = do_pca_for_sample_data(0)
