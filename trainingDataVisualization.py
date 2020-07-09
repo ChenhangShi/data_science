@@ -27,7 +27,7 @@ def do_visualization(raw_data):
     plt.bar(range(len(section_data)), section_data, align='center', color='steelblue', alpha=0.8)
     plt.ylabel('数量')
     plt.title('各难度区间题目个数  总数{}'.format(sum(section_data)))
-    plt.xticks(range(len(x_axis)), x_axis, rotation=-20)  # 横坐标字倾斜 这样小屏幕时字不会叠在一起
+    plt.xticks(range(len(x_axis)), x_axis, rotation=-30)  # 横坐标字倾斜 这样小屏幕时字不会叠在一起
     # 为每个条形图添加数值标签
     for x, y in enumerate(section_data):
         plt.text(x, y, '%s' % y, ha='center')
