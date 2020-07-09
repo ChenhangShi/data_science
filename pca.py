@@ -79,6 +79,7 @@ def myPCA(X, case_id_list):
     # 标准化得到Z sklearn的pca只减去平均值，中心化
     Z = (X - avg) / sd
 
+
     # 第二步 求(Z)T的协方差矩阵R 因为Z的一个特征为一列 而不是一行
     R = np.dot(Z.T, Z) / (n - 1)
     # R = np.cov(Z.T)
