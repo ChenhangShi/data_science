@@ -1,5 +1,5 @@
 import utils
-from DataCollecting import getSampleData
+from DataCollecting import getSampleData, getTraingSetAndTestSet
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -59,7 +59,7 @@ def do_pca_for_sample_data(from_which):
     return myPCA(X, case_id_list)
 
 
-# 这里暂时不改do_pca的方法了，因为训练集没法按照步长来去，就新开了一个方法，直接传入训练集
+# 这里暂时不改do_pca的方法了，因为训练集没法按照步长来取，就新开了一个方法，直接传入训练集
 def do_pca_for_training_data(case_list):
     case_id_list = [x.caseId for x in case_list]
     X = utils.caseListToMartix(case_list)
@@ -163,4 +163,6 @@ def libPCA(X):
 
 
 if __name__ == '__main__':
-    r, u, pcaModal = do_pca_for_sample_data(0)
+    trainingSet, testSet=getTraingSetAndTestSet('字符串')
+    r, u, pcaModal = do_pca_for_training_data(trainingSet)
+    print(r)

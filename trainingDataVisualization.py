@@ -2,7 +2,7 @@ from pca import do_pca_for_training_data  # 这里别删，main中会用到
 from DataCollecting import getTraingSetAndTestSet  # 这里别删，main中会用到
 import matplotlib.pyplot as plt
 
-section_num = 80  # 这里暂定把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的两倍）
+section_num = 10  # 这里暂定把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的两倍）
 
 
 # 比较尴尬的是在pca数据可视化文件中，这个名字的变量代表各区间的题目数量
@@ -81,7 +81,7 @@ def determine_section_len(raw_data):
 
 
 if __name__ == '__main__':
-    origin_res = do_pca_for_training_data(getTraingSetAndTestSet()[0])[0]
+    origin_res = do_pca_for_training_data(getTraingSetAndTestSet('数组')[0])[0]
     do_visualization(origin_res)
 
 '''

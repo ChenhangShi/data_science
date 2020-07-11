@@ -357,33 +357,7 @@ def getAllCaseIds():
             if caseId not in caseList:
                 caseList.append(caseId)
     f.close()
-    return caseList
 
-
-# 获取样本的caseId的list 可指定从哪里开始取 步长为5
-def getSampleCaseList(from_which):
-    caseList = getAllCaseIds()
-
-    sampleCaseList = []
-    for i in range(from_which, len(caseList), 5):
-        sampleCaseList.append(caseList[i])
-    return sampleCaseList
-
-
-# 获取所有的caseId
-def getAllCaseIds():
-    f = open('test_data.json', encoding='utf-8')
-    res = f.read()
-    data = json.loads(res)
-
-    caseList = []
-    for userId in data:
-        cases = data[userId]['cases']
-        for case in cases:
-            caseId = case['case_id']
-            if caseId not in caseList:
-                caseList.append(caseId)
-    f.close()
     return caseList
 
 
@@ -473,3 +447,37 @@ def getTraingSetAndTestSet():
     testSet = getCaseObjsByCaseIdList(case_id_test)
     return trainingSet, testSet
 
+# 根据case type来获取训练集和测试集的List<Case>
+def getTraingSetAndTestSet(caseType):
+    case_id_training, case_id_test = getCaseIdOfTrainingAndTestSet(caseType)
+    trainingSet = getCaseObjsByCaseIdList(case_id_training)
+    testSet = getCaseObjsByCaseIdList(case_id_test)
+    return trainingSet, testSet
+
+# 根据case type来获取训练集和测试集的caseId，训练集占80%，测试集占20%
+def getCaseIdOfTrainingAndTestSet(caseType):
+    caseList = getAllCaseIds(caseType)
+
+    testSet = []
+    for i in range(4, len(caseList), 5):
+        testSet.append(caseList[i])
+    trainingSet = list(set(caseList) - set(testSet))
+    return trainingSet, testSet
+
+# 获取caseType类型的caseId
+def getAllCaseIds(caseType):
+    f = open('test_data.json', encoding='utf-8')
+    res = f.read()
+    data = json.loads(res)
+
+    caseList = []
+    for userId in data:
+        cases = data[userId]['cases']
+        for case in cases:
+            caseId = case['case_id']
+            tempType=case['case_type']
+            if (caseId not in caseList) and (tempType==caseType):
+                caseList.append(caseId)
+    f.close()
+
+    return caseList
