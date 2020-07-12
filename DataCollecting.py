@@ -447,28 +447,9 @@ def getTraingSetAndTestSet():
     testSet = getCaseObjsByCaseIdList(case_id_test)
     return trainingSet, testSet
 
-# 根据case type来获取训练集和测试集的List<Case>
-# TODO 重命名 要小心
-def getTraingSetAndTestSet(caseType):
-    case_id_training, case_id_test = getCaseIdOfTrainingAndTestSet(caseType)
-    trainingSet = getCaseObjsByCaseIdList(case_id_training)
-    testSet = getCaseObjsByCaseIdList(case_id_test)
-    return trainingSet, testSet
-
-# 根据case type来获取训练集和测试集的caseId，训练集占80%，测试集占20%
-# TODO 重命名 要小心
-def getCaseIdOfTrainingAndTestSet(caseType):
-    caseList = getAllCaseIds(caseType)
-
-    testSet = []
-    for i in range(4, len(caseList), 5):
-        testSet.append(caseList[i])
-    trainingSet = list(set(caseList) - set(testSet))
-    return trainingSet, testSet
 
 # 获取caseType类型的caseId
-# TODO 重命名 要小心
-def getAllCaseIds(caseType):
+def getCaseIdsByType(caseType):
     f = open('test_data.json', encoding='utf-8')
     res = f.read()
     data = json.loads(res)
@@ -478,9 +459,26 @@ def getAllCaseIds(caseType):
         cases = data[userId]['cases']
         for case in cases:
             caseId = case['case_id']
-            tempType=case['case_type']
-            if (caseId not in caseList) and (tempType==caseType):
+            tempType = case['case_type']
+            if (caseId not in caseList) and (tempType == caseType):
                 caseList.append(caseId)
     f.close()
-
     return caseList
+
+
+# 根据case type来获取训练集和测试集的caseId，训练集占80%，测试集占20%
+def getCaseIdOfTrainingAndTestSetByType(caseType):
+    caseList = getCaseIdsByType(caseType)
+    testSet = []
+    for i in range(4, len(caseList), 5):
+        testSet.append(caseList[i])
+    trainingSet = list(set(caseList) - set(testSet))
+    return trainingSet, testSet
+
+
+# 根据case type来获取训练集和测试集的List<Case>
+def getTraingSetAndTestSetByType(caseType):
+    case_id_training, case_id_test = getCaseIdOfTrainingAndTestSetByType(caseType)
+    trainingSet = getCaseObjsByCaseIdList(case_id_training)
+    testSet = getCaseObjsByCaseIdList(case_id_test)
+    return trainingSet, testSet

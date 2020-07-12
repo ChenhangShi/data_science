@@ -28,12 +28,12 @@ def see_overall_training_set():
 
 
 # 对总体的测试集用训练好的模型降维
-def calTestSetRes():
+def cal_overall_test_set_res():
     trainingSet, testSet = getTraingSetAndTestSet()
     res, U, pcaModal = do_pca_for_training_data(trainingSet)
     utest, restest = pcaModal.transform_case_obj(testSet)
     print(restest)
 
 
-if __name__ == '__main':
-    calTestSetRes()
+if __name__ == '__main__':
+    see_overall_training_set()
