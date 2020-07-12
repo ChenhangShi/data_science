@@ -11,7 +11,7 @@ from trainingDataVisualization import do_visualization
 
 # 对某类型的训练集可视化
 # TODO 传入参数 什么类型的题目
-def see_type_training_set():
+def show_type_training_set():
     origin_res = do_pca_for_training_data(getTraingSetAndTestSetByType('数组')[0])[0]
     # 把数据分为10个区间 （训练数据）
     do_visualization(origin_res, 10)
@@ -20,4 +20,4 @@ def see_type_training_set():
 # TODO 对某类型的测试集用训练好的模型降维
 
 if __name__ == '__main__':
-    see_type_training_set()
+    show_type_training_set()
