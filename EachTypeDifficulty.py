@@ -16,6 +16,7 @@ def see_type_training_set():
     # 把数据分为10个区间 （训练数据）
     do_visualization(origin_res, 10)
 
+
 # TODO 对某类型的测试集用训练好的模型降维
 
 if __name__ == '__main__':

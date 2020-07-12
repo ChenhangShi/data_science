@@ -48,6 +48,7 @@ class PcaModal(object):
         return U, res
 
 
+# from_which是从哪个开始抽样
 def do_pca_for_sample_data(from_which):
     # data是List<Case>
     data = getSampleData(from_which)
@@ -67,6 +68,7 @@ def do_pca_for_training_data(case_list):
 
 
 # 传入一个矩阵 一行为一条记录 一列为一个特征
+# 返回：综合结果res、对样本pca得到的结果U、训练好的模型一个PcaModal
 def myPCA(X, case_id_list):
     # 第一步 原始数据的标准化
     # 样本数量
@@ -78,7 +80,6 @@ def myPCA(X, case_id_list):
     sd = np.std(X, axis=0)
     # 标准化得到Z sklearn的pca只减去平均值，中心化
     Z = (X - avg) / sd
-
 
     # 第二步 求(Z)T的协方差矩阵R 因为Z的一个特征为一列 而不是一行
     R = np.dot(Z.T, Z) / (n - 1)
@@ -139,7 +140,6 @@ def myPCA(X, case_id_list):
         res.append(s)
     # 将caseId和res组合
     res = dict(zip(case_id_list, res))
-    # 要返回的：
     # 综合结果res
     # 对样本pca得到的结果U
     # 训练好的模型PcaModal
