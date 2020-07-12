@@ -448,6 +448,7 @@ def getTraingSetAndTestSet():
     return trainingSet, testSet
 
 # 根据case type来获取训练集和测试集的List<Case>
+# TODO 重命名 要小心
 def getTraingSetAndTestSet(caseType):
     case_id_training, case_id_test = getCaseIdOfTrainingAndTestSet(caseType)
     trainingSet = getCaseObjsByCaseIdList(case_id_training)
@@ -455,6 +456,7 @@ def getTraingSetAndTestSet(caseType):
     return trainingSet, testSet
 
 # 根据case type来获取训练集和测试集的caseId，训练集占80%，测试集占20%
+# TODO 重命名 要小心
 def getCaseIdOfTrainingAndTestSet(caseType):
     caseList = getAllCaseIds(caseType)
 
@@ -465,6 +467,7 @@ def getCaseIdOfTrainingAndTestSet(caseType):
     return trainingSet, testSet
 
 # 获取caseType类型的caseId
+# TODO 重命名 要小心
 def getAllCaseIds(caseType):
     f = open('test_data.json', encoding='utf-8')
     res = f.read()

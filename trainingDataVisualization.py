@@ -1,18 +1,10 @@
-from pca import do_pca_for_training_data  # 这里别删，main中会用到
-from DataCollecting import getTraingSetAndTestSet  # 这里别删，main中会用到
 import matplotlib.pyplot as plt
 
-section_num = 10  # 这里暂定把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的两倍）
 
-
-# 比较尴尬的是在pca数据可视化文件中，这个名字的变量代表各区间的题目数量
-# 在本文件中，各区间的题目数量用section_data表示
-
-# 如果用这个文件跑测试数据到话记得改一下 （建议改为10）
-
-
-def do_visualization(raw_data):
-    temp = determine_section_len(raw_data)
+def do_visualization(raw_data, section_num):
+    # 比较尴尬的是在pca数据可视化文件中，这个名字的变量代表各区间的题目数量
+    # 在本文件中，各区间的题目数量用section_data表示
+    temp = determine_section_len(raw_data, section_num)
     x_axis = temp[0]
     section_data = temp[1]
     # 绘图
@@ -35,7 +27,7 @@ def do_visualization(raw_data):
 
 
 # 根据pca返回的res，确定区间的长度，由此生成横坐标样式，同时计算每个区间内的题目个数（说白了就是x,y轴对数据源）
-def determine_section_len(raw_data):
+def determine_section_len(raw_data, section_num):
     data = sorted(raw_data.items(), key=lambda item: item[1])  # 字典不能排序，排序之后，每个键值对转化为元组
     data = [list(x) for x in data]
     print(data)
@@ -78,17 +70,3 @@ def determine_section_len(raw_data):
     # print(x_axis)
     # print(section_data)
     return x_axis, section_data
-
-
-if __name__ == '__main__':
-    origin_res = do_pca_for_training_data(getTraingSetAndTestSet('数组')[0])[0]
-    do_visualization(origin_res)
-
-'''
-以下记录针对训练数据
-生成的x轴：
-['-1.38--1.21', '-1.21--1.04', '-1.04--0.87', '-0.87--0.7', '-0.7--0.53', '-0.53--0.36', '-0.36--0.19', '-0.19--0.02', '-0.02-0.15', '0.15-0.32', '0.32-0.49', '0.49-0.66', '0.66-0.83', '0.83-1.0', '1.0-1.17', '1.17-1.34', '1.34-1.51', '1.51-1.68', '1.68-1.85', '1.85-2.02', '2.02-2.19', '2.19-2.36', '2.36-2.53', '2.53-2.7', '2.7-2.87', '2.87-3.04', '3.04-3.21', '3.21-3.38', '3.38-3.55', '3.55-3.72', '3.72-3.89', '3.89-4.06', '4.06-4.23', '4.23-4.4', '4.4-4.57', '4.57-4.74', '4.74-4.91', '4.91-5.08', '5.08-5.25', '5.25-5.42']
-各区间个数
-[6, 42, 82, 75, 56, 63, 53, 55, 47, 34, 27, 25, 23, 13, 13, 16, 10, 9, 9, 7, 6, 5, 6, 6, 2, 2, 3, 2, 0, 3, 2, 0, 1, 0, 2, 0, 0, 0, 1, 0]
-
-'''

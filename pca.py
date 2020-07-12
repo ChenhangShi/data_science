@@ -1,5 +1,5 @@
 import utils
-from DataCollecting import getSampleData, getTraingSetAndTestSet
+from DataCollecting import getSampleData
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
@@ -160,9 +160,3 @@ def libPCA(X):
     print()
     print(pca.explained_variance_ratio_)
     print('\n\n\n\n\n')
-
-
-if __name__ == '__main__':
-    trainingSet, testSet=getTraingSetAndTestSet('字符串')
-    r, u, pcaModal = do_pca_for_training_data(trainingSet)
-    print(r)
