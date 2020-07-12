@@ -3,7 +3,7 @@ Python编程练习最终提交情况.xlsx
 sample.json
 test_data.json
 .idea/
-venv
+venv*
 .DS_Store
 target/
 !.mvn/wrapper/maven-wrapper.jar

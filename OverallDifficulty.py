@@ -13,7 +13,7 @@ from trainingDataVisualization import do_visualization
 # 对总体对训练集可视化
 def show_overall_training_set():
     origin_res = do_pca_for_training_data(getTraingSetAndTestSet()[0])[0]
-    # 把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的两倍）
+    # 把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的一半）
     do_visualization(origin_res, 80)
 
 

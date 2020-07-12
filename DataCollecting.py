@@ -363,11 +363,11 @@ def getAllCaseIds():
 
 # 获取样本的caseId的list 可指定从哪里开始取 步长为5
 def getSampleCaseList(from_which):
-    caseList = getAllCaseIds()
+    all_case_id_list = getAllCaseIds()
 
     sampleCaseList = []
-    for i in range(from_which, len(caseList), 5):
-        sampleCaseList.append(caseList[i])
+    for i in range(from_which, len(all_case_id_list), 5):
+        sampleCaseList.append(all_case_id_list[i])
     return sampleCaseList
 
 
@@ -403,16 +403,16 @@ class Case(object):
 
 
 # 根据caseId的list收集数据生成List<Case>
-def getCaseObjsByCaseIdList(caseList):
-    averageDeductionValues = getAverageDeduction(caseList)
-    averageLineNumValues = getAverageLineNum(caseList)
-    averageTimeValues = getAverageTime(caseList)
-    averageUploadNumValues = getAverageUploadNum(caseList)
-    cheatRatioValues = cheatRatio(caseList)
-    incompleteRatioValues = getIncompleteRatio(caseList)
+def getCaseObjsByCaseIdList(case_id_list):
+    averageDeductionValues = getAverageDeduction(case_id_list)
+    averageLineNumValues = getAverageLineNum(case_id_list)
+    averageTimeValues = getAverageTime(case_id_list)
+    averageUploadNumValues = getAverageUploadNum(case_id_list)
+    cheatRatioValues = cheatRatio(case_id_list)
+    incompleteRatioValues = getIncompleteRatio(case_id_list)
 
     caseObjs = []
-    for caseId in caseList:
+    for caseId in case_id_list:
         caseObjs.append(Case(caseId,
                              averageDeductionValues[caseId],
                              averageLineNumValues[caseId],
