@@ -1,7 +1,7 @@
 from DataCollecting import getBaseSetByType
 from DataCollecting import getTestSetByType
 from trainingDataVisualization import do_visualization
-from SaveTrainingResult import deserialize_training_result
+from pca import deserialize_training_result
 
 '''
 划分同类型相对难度

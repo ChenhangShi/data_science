@@ -1,7 +1,7 @@
 import os
 from Download import download
 from DataCollecting import serialize_all_case_objs
-from SaveTrainingResult import serialize_training_result
+from pca import serialize_training_result
 
 '''
 初始化所需要的文件

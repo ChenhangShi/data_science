@@ -1,6 +1,6 @@
 from DataCollecting import getTestSet
 from trainingDataVisualization import do_visualization
-from SaveTrainingResult import deserialize_training_result
+from pca import deserialize_training_result
 
 '''
 划分总体难度
