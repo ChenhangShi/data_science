@@ -94,4 +94,5 @@ def download():
                 print('成功：' + file_path)
 
 
-download()
+if __name__=='__main__':
+    download()

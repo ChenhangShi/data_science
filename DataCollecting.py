@@ -2,6 +2,7 @@ import json
 import os
 import re
 from collections import defaultdict
+import pickle
 
 '''
 收集6个属性
@@ -343,34 +344,6 @@ def getIncompleteRatio(sampleCaseList):
     return incompleteRatioValues  # ,incompleteRatioRatios
 
 
-# 获取所有的caseId
-def getAllCaseIds():
-    f = open('test_data.json', encoding='utf-8')
-    res = f.read()
-    data = json.loads(res)
-
-    caseList = []
-    for userId in data:
-        cases = data[userId]['cases']
-        for case in cases:
-            caseId = case['case_id']
-            if caseId not in caseList:
-                caseList.append(caseId)
-    f.close()
-
-    return caseList
-
-
-# 获取样本的caseId的list 可指定从哪里开始取 步长为5
-def getSampleCaseList(from_which):
-    all_case_id_list = getAllCaseIds()
-
-    sampleCaseList = []
-    for i in range(from_which, len(all_case_id_list), 5):
-        sampleCaseList.append(all_case_id_list[i])
-    return sampleCaseList
-
-
 class Case(object):
     """
     整合数据到对象
@@ -403,7 +376,7 @@ class Case(object):
 
 
 # 根据caseId的list收集数据生成List<Case>
-def getCaseObjsByCaseIdList(case_id_list):
+def generateCaseObjsByCaseIdList(case_id_list):
     averageDeductionValues = getAverageDeduction(case_id_list)
     averageLineNumValues = getAverageLineNum(case_id_list)
     averageTimeValues = getAverageTime(case_id_list)
@@ -423,10 +396,61 @@ def getCaseObjsByCaseIdList(case_id_list):
     return caseObjs
 
 
+# 获取所有的caseId
+def getAllCaseIds():
+    f = open('test_data.json', encoding='utf-8')
+    res = f.read()
+    data = json.loads(res)
+
+    caseList = []
+    for userId in data:
+        cases = data[userId]['cases']
+        for case in cases:
+            caseId = case['case_id']
+            if caseId not in caseList:
+                caseList.append(caseId)
+    f.close()
+
+    return caseList
+
+
+# 将所有的Case对象序列化，因为自定义对象不能直接转成json
+def serialize_all_case_objs():
+    file_name = 'AllCaseObjs'
+    with open(file_name, 'wb') as f:
+        pickle.dump(generateCaseObjsByCaseIdList(getAllCaseIds()), f)
+
+
+# 反序列化获取所有的对象
+def deserialize_all_case_objs():
+    file_name = 'AllCaseObjs'
+    with open(file_name, 'rb') as f:
+        all_case_objs = pickle.load(f)
+    return all_case_objs
+
+
+def get_case_objs_by_case_id_list(case_id_list):
+    all_case_objs = deserialize_all_case_objs()
+    required_case_objs = []
+    for case in all_case_objs:
+        if case.caseId in case_id_list:
+            required_case_objs.append(case)
+    return required_case_objs
+
+
+# 获取样本的caseId的list 可指定从哪里开始取 步长为5
+def getSampleCaseIdList(from_which):
+    all_case_id_list = getAllCaseIds()
+    sampleCaseList = []
+    for i in range(from_which, len(all_case_id_list), 5):
+        sampleCaseList.append(all_case_id_list[i])
+    return sampleCaseList
+
+
 # 获取样本的List<Case>
 def getSampleData(from_which):
-    caseList = getSampleCaseList(from_which)
-    return getCaseObjsByCaseIdList(caseList)
+    sample_case_id_list = getSampleCaseIdList(from_which)
+    return get_case_objs_by_case_id_list(sample_case_id_list)
 
 
 # 获取训练集和测试集的caseId，训练集占80%，测试集占20%
@@ -440,12 +464,18 @@ def getCaseIdOfTrainingAndTestSet():
     return trainingSet, testSet
 
 
-# 获取训练集和测试集的List<Case>
-def getTraingSetAndTestSet():
-    case_id_training, case_id_test = getCaseIdOfTrainingAndTestSet()
-    trainingSet = getCaseObjsByCaseIdList(case_id_training)
-    testSet = getCaseObjsByCaseIdList(case_id_test)
-    return trainingSet, testSet
+# 获取训练集的List<Case>
+def getTraingSet():
+    case_id_training = getCaseIdOfTrainingAndTestSet()[0]
+    trainingSet = get_case_objs_by_case_id_list(case_id_training)
+    return trainingSet
+
+
+# 获取测试集的List<Case>
+def getTestSet():
+    case_id_test = getCaseIdOfTrainingAndTestSet()[1]
+    testSet = get_case_objs_by_case_id_list(case_id_test)
+    return testSet
 
 
 # 获取caseType类型的caseId
@@ -466,19 +496,30 @@ def getCaseIdsByType(caseType):
     return caseList
 
 
-# 根据case type来获取训练集和测试集的caseId，训练集占80%，测试集占20%
-def getCaseIdOfTrainingAndTestSetByType(caseType):
+# 根据case type来获取基础集和测试集的caseId，基础集占80%，测试集占20%
+# 基础集用来可视化、划分难度区间，类似于训练集，不过训练集是总体的80%，用来生成PcaModel
+def getCaseIdOfBaseAndTestSetByType(caseType):
     caseList = getCaseIdsByType(caseType)
     testSet = []
     for i in range(4, len(caseList), 5):
         testSet.append(caseList[i])
-    trainingSet = list(set(caseList) - set(testSet))
-    return trainingSet, testSet
+    baseSet = list(set(caseList) - set(testSet))
+    return baseSet, testSet
 
 
-# 根据case type来获取训练集和测试集的List<Case>
-def getTraingSetAndTestSetByType(caseType):
-    case_id_training, case_id_test = getCaseIdOfTrainingAndTestSetByType(caseType)
-    trainingSet = getCaseObjsByCaseIdList(case_id_training)
-    testSet = getCaseObjsByCaseIdList(case_id_test)
-    return trainingSet, testSet
+# 根据case type来获取基础集和测试集的List<Case>
+def getBaseSetByType(caseType):
+    case_id_base = getCaseIdOfBaseAndTestSetByType(caseType)[0]
+    baseSet = get_case_objs_by_case_id_list(case_id_base)
+    return baseSet
+
+
+# 根据case type来获取测试集的List<Case>
+def getTestSetByType(caseType):
+    case_id_test = getCaseIdOfBaseAndTestSetByType(caseType)[1]
+    testSet = get_case_objs_by_case_id_list(case_id_test)
+    return testSet
+
+
+if __name__ == '__main__':
+    serialize_all_case_objs()

@@ -1,6 +1,8 @@
-from DataCollecting import getTraingSetAndTestSet
-from pca import do_pca_for_training_data
+from DataCollecting import getTraingSet
+from DataCollecting import getTestSet
+from DataCollecting import Case
 from trainingDataVisualization import do_visualization
+from SaveTrainingResult import deserialize_training_result
 
 '''
 划分总体难度
@@ -10,9 +12,10 @@ from trainingDataVisualization import do_visualization
 '''
 
 
-# 对总体对训练集可视化
-def show_overall_training_set():
-    origin_res = do_pca_for_training_data(getTraingSetAndTestSet()[0])[0]
+# 对总体的训练集可视化
+def show_overall_training_set_res():
+    # 对总体训练集pca返回的结果已序列化保存在TrainingResult中
+    origin_res = deserialize_training_result()[0]
     # 把数据分为80个区间 （训练数据） （每个区间的平均题目数量是pca的可视化的一半）
     do_visualization(origin_res, 80)
 
@@ -29,11 +32,12 @@ def show_overall_training_set():
 
 # 对总体的测试集用训练好的模型降维
 def cal_overall_test_set_res():
-    trainingSet, testSet = getTraingSetAndTestSet()
-    res, U, pcaModal = do_pca_for_training_data(trainingSet)
-    utest, restest = pcaModal.transform_case_obj(testSet)
-    print(restest)
+    testSet = getTestSet()
+    res, U, pcaModal = deserialize_training_result()
+    res_test = pcaModal.transform_case_obj(testSet)[0]
+    print(res_test)
+    return res_test
 
 
 if __name__ == '__main__':
-    show_overall_training_set()
+    cal_overall_test_set_res()

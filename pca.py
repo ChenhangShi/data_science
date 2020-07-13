@@ -45,7 +45,7 @@ class PcaModal(object):
             res.append(s)
         if case_id_list:
             res = dict(zip(case_id_list, res))
-        return U, res
+        return res, U
 
 
 # from_which是从哪个开始抽样
