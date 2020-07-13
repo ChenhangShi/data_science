@@ -3,7 +3,6 @@ from pca import do_pca_for_sample_data
 from scipy import stats as ss
 from pcaDataVisualization import do_visualization
 import json
-from DataCollecting import Case
 
 
 def check_score(res):

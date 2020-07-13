@@ -92,7 +92,3 @@ def download():
                 urllib.request.urlretrieve(urllib.parse.quote(file_url, safe=string.printable), file_path + filename)
                 un_zip(file_path + filename)
                 print('成功：' + file_path)
-
-
-if __name__=='__main__':
-    download()

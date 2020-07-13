@@ -1,6 +1,4 @@
-from DataCollecting import getTraingSet
 from DataCollecting import getTestSet
-from DataCollecting import Case
 from trainingDataVisualization import do_visualization
 from SaveTrainingResult import deserialize_training_result
 

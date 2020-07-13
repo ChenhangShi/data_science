@@ -519,7 +519,3 @@ def getTestSetByType(caseType):
     case_id_test = getCaseIdOfBaseAndTestSetByType(caseType)[1]
     testSet = get_case_objs_by_case_id_list(case_id_test)
     return testSet
-
-
-if __name__ == '__main__':
-    serialize_all_case_objs()

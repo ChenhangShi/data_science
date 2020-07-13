@@ -5,7 +5,6 @@
 """
 
 import matplotlib.pyplot as plt
-from pca import do_pca_for_sample_data  # 这里先别删掉，main中会用到pca
 
 
 # 总过程

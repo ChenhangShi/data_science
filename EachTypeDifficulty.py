@@ -1,6 +1,5 @@
 from DataCollecting import getBaseSetByType
 from DataCollecting import getTestSetByType
-from DataCollecting import Case
 from trainingDataVisualization import do_visualization
 from SaveTrainingResult import deserialize_training_result
 

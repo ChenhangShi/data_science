@@ -1,5 +1,4 @@
 import pickle
-from DataCollecting import Case
 from DataCollecting import getTraingSet
 from pca import do_pca_for_training_data
 
@@ -25,7 +24,3 @@ def deserialize_training_result():
         U = pickle.load(f)
         pcaModel = pickle.load(f)
     return res,U,pcaModel
-
-
-if __name__ == '__main__':
-    serialize_training_result()
