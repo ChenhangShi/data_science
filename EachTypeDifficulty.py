@@ -27,4 +27,4 @@ def cal_type_test_set_res(case_type):
 
 
 if __name__ == '__main__':
-    cal_type_test_set_res('数组')
+    show_type_base_set_res('树结构')
