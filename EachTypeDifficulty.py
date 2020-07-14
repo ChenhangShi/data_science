@@ -14,8 +14,8 @@ from pca import deserialize_training_result
 def show_type_base_set_res(case_type):
     pcaModel = deserialize_training_result()[2]
     origin_res = pcaModel.transform_case_obj(getBaseSetByType(case_type))[0]
-    # 把数据分为10个区间 （训练数据）
-    do_visualization(origin_res, 10)
+    # 把数据分为20个区间 （训练数据）
+    do_visualization(origin_res, 20)
 
 
 # 对某类型的测试集用训练集训练好的模型降维
@@ -27,4 +27,12 @@ def cal_type_test_set_res(case_type):
 
 
 if __name__ == '__main__':
-    show_type_base_set_res('树结构')
+    a = '字符串'
+    b = '数组'
+    c = '树结构'
+    d = '图结构'
+    e = '排序算法'
+    f = '数字操作'
+    g = '查找算法'
+    h = '线性表'
+    show_type_base_set_res('线性表')

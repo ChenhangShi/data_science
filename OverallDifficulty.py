@@ -38,4 +38,4 @@ def cal_overall_test_set_res():
 
 
 if __name__ == '__main__':
-    cal_overall_test_set_res()
+    show_overall_training_set_res()
