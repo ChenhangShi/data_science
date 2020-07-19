@@ -34,17 +34,17 @@ def show_result(case_id):
     d['all'].append(1.95)
     if res_test[case_id]<d['all'][0]:
         print('绝对难度: 简单')
-    elif res_test[case_id]>d['all'][1]:
+    elif res_test[case_id]>=d['all'][1]:
         print('绝对难度: 困难')
     else:
         print('绝对难度: 中等')
     if res_test[case_id]<d[case_list[0].caseType[0]][0]:
         print('相对难度: 简单')
-    elif res_test[case_id]>d[case_list[0].caseType[0]][1]:
+    elif res_test[case_id]>=d[case_list[0].caseType[0]][1]:
         print('相对难度: 困难')
     else:
         print('相对难度: 中等')
 
 
 if __name__ == '__main__':
-    show_result("2122")
+    show_result("2149")
