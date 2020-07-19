@@ -40,6 +40,33 @@ def getAverageDeduction(sampleCaseList):
     f.close()
     return averageDeductionValues
 
+# 根据caseList获取对应的caseTypeList
+def getCaseType(sampleCaseList):
+    # 原始值
+    d = defaultdict(list)
+
+    f = open('test_data.json', encoding='utf-8')
+    res = f.read()
+    data = json.loads(res)
+    # # 遍历
+    # caseList = []
+    # for userId in data:
+    #     cases = data[userId]['cases']
+    #     for case in cases:
+    #         caseId = case['case_id']
+    #         if caseId not in caseList:
+    #             caseList.append(caseId)
+    # f.close()
+    for userId in data:
+        cases = data[userId]['cases']
+        for case in cases:
+            caseId = case['case_id']
+            # 是否是要取的
+            if caseId in sampleCaseList:
+                if len(d[caseId])==0:
+                    d[caseId].append(case['case_type'])
+    f.close()
+    return d
 
 # 平均行数
 def getAverageLineNum(sampleCaseList):  # 返回一个字典case_id : averageLineNum
@@ -359,6 +386,7 @@ class Case(object):
     """
 
     def __init__(self, caseId,
+                 caseType,
                  averageDeduction,
                  averageLineNum,
                  averageTime,
@@ -367,6 +395,7 @@ class Case(object):
                  incompleteRatio,
                  ):
         self.caseId = caseId
+        self.caseType = caseType
         self.averageDeduction = averageDeduction
         self.incompleteRatio = incompleteRatio
         self.averageTime = averageTime
@@ -383,10 +412,12 @@ def generateCaseObjsByCaseIdList(case_id_list):
     averageUploadNumValues = getAverageUploadNum(case_id_list)
     cheatRatioValues = cheatRatio(case_id_list)
     incompleteRatioValues = getIncompleteRatio(case_id_list)
+    caseType = getCaseType(case_id_list)
 
     caseObjs = []
     for caseId in case_id_list:
         caseObjs.append(Case(caseId,
+                             caseType[caseId],
                              averageDeductionValues[caseId],
                              averageLineNumValues[caseId],
                              averageTimeValues[caseId],
