@@ -40,6 +40,7 @@ def getAverageDeduction(sampleCaseList):
     f.close()
     return averageDeductionValues
 
+
 # 根据caseList获取对应的caseTypeList
 def getCaseType(sampleCaseList):
     # 原始值
@@ -63,10 +64,11 @@ def getCaseType(sampleCaseList):
             caseId = case['case_id']
             # 是否是要取的
             if caseId in sampleCaseList:
-                if len(d[caseId])==0:
+                if len(d[caseId]) == 0:
                     d[caseId].append(case['case_type'])
     f.close()
     return d
+
 
 # 平均行数
 def getAverageLineNum(sampleCaseList):  # 返回一个字典case_id : averageLineNum
